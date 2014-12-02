@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/ -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="it-IT"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<title>Wi-fi on Raspberry Pi, a simple guide - RaspyFi</title>
+<div class="fit-vids-style">­<style>               .fluid-width-video-wrapper {                 width: 100%;                              position: relative;                       padding: 0;                            }                                                                                   .fluid-width-video-wrapper iframe,        .fluid-width-video-wrapper object,        .fluid-width-video-wrapper embed {           position: absolute;                       top: 0;                                   left: 0;                                  width: 100%;                              height: 100%;                          }                                       </style></div><script async="" data-rocketsrc="?cf_action=sync_comments&amp;post_id=321" data-rocketoptimized="true"></script><script data-rocketsrc="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_US.hLCNT2l-Qik.O/m=auth/exm=plusone/rt=j/sv=1/d=1/ed=1/am=EQ/rs=AGLTcCMpI6pxpRaZReTnpKqEyJ5RTNri_w/cb=gapi.loaded_1" data-rocketoptimized="true" async=""></script><script data-rocketsrc="https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en_US.hLCNT2l-Qik.O/m=plusone/rt=j/sv=1/d=1/ed=1/am=EQ/rs=AGLTcCMpI6pxpRaZReTnpKqEyJ5RTNri_w/cb=gapi.loaded_0" data-rocketoptimized="true" async=""></script><script type="text/javascript" async="" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/pinit_main.js"></script><script type="text/javascript" async="" data-rocketsrc="http://platform.stumbleupon.com/1/widgets.js" data-rocketoptimized="true"></script><script type="text/javascript" async="" data-rocketsrc="https://apis.google.com/js/plusone.js" data-rocketoptimized="true" gapi_processed="true"></script><script id="twitter-wjs" data-rocketsrc="//platform.twitter.com/widgets.js" data-rocketoptimized="true"></script><script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok2v=1613a3a185/"},atok:"989f3b597274123486d089f631c9545f",petok:"626b3261767d083ece321196698c33eb3a9772d6-1416095954-1800",zone:"raspyfi.com",rocket:"a",apps:{}}];document.write('<script type="text/javascript" src="//ajax.cloudflare.com/cdn-cgi/nexp/dok2v=919620257c/cloudflare.min.js"><'+'\/script>');}}catch(e){};
+//]]>
+</script><script type="text/javascript" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/cloudflare.min.js"></script><style type="text/css">.cf-hidden { display: none; } .cf-invisible { visibility: hidden; }</style><script data-module="cloudflare/rocket" id="cfjs_block_142159ed24d" onload="CloudFlare.__cfjs_block_142159ed24d_load()" onerror="CloudFlare.__cfjs_block_142159ed24d_error()" onreadystatechange="CloudFlare.__cfjs_block_142159ed24d_readystatechange()" type="text/javascript" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/rocket.js"></script>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.raspyfi.com/xmlrpc.php">
+ 
+<meta name="description" content="Tutorial to get Wi-fi on Raspberry Pi, and also on raspyfi. Link to a cheap wi-fi dongle, and tutorial with wicd-curses">
+<link rel="canonical" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/Wi-fi on Raspberry Pi, a simple guide - RaspyFi.html">
+ 
+<link rel="alternate" type="application/rss+xml" title="RaspyFi » Feed" href="http://www.raspyfi.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="RaspyFi » Feed dei commenti" href="http://www.raspyfi.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="RaspyFi » Wi-fi on Raspberry Pi, a simple guide Feed dei commenti" href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/feed/">
+<link rel="stylesheet" id="jetpack_likes-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="responsive-style-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack-widgets-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/widgets.css" type="text/css" media="all">
+<link rel="stylesheet" id="flare-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/flare.css" type="text/css" media="all">
+<link rel="stylesheet" id="flare-oswald-font-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="widget-grid-and-list-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/widget-grid-and-list.css" type="text/css" media="all">
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-includes/js/jquery/jquery.js?ver=1.8.3" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/plugins/jetpack/_inc/postmessage.js?ver=2.2.5" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/plugins/jetpack/_inc/jquery.inview.js?ver=2.2.5" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/plugins/jetpack/_inc/jquery.jetpack-resize.js?ver=2.2.5" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/plugins/itro-popup/scripts/itro-scripts.js?ver=3.5.1" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/themes/responsive/js/responsive-modernizr.js?ver=2.6.1" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-includes/js/comment-reply.min.js?ver=3.5.1" data-rocketoptimized="true"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.raspyfi.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.raspyfi.com/wp-includes/wlwmanifest.xml">
+<link rel="shortlink" href="http://wp.me/p30FWZ-5b">
+  
+<style type="text/css" media="screen">.home #wrapper{-webkit-border-radius:6px;-moz-border-radius:6px;background-color:#fff;border:1px solid #d6d6d6;border-radius:6px;clear:both;margin:20px auto 20px auto;padding:0 20px 20px 20px;position:relative;}.home #widgets{margin-top:40px;}</style>
+ 
+<meta name="keywords" content="Pi raspberry, raspberry pi, voyage mpd, mpd, audiophile, raspberr, raspberr pi, voyage mpd arm, mpd arm, raspberry mpd, raspyfi">
+ 
+ 
+ <link rel="icon" href="http://www.raspyfi.com/wp-content/uploads/2013/07/icon2.png" type="image/png">
+<style type="text/css" id="custom-background-css">body.custom-background{background-color:#000000;}</style>
+<script type="text/rocketscript" data-rocketoptimized="true">
+(function(url){
+if(/(?:Chrome\/26\.0\.1410\.63 Safari\/537\.31|WordfenceTestMonBot)/.test(navigator.userAgent)){ return; }
+var wfscr = document.createElement('script');
+wfscr.type = 'text/javascript';
+wfscr.async = true;
+wfscr.src = url + '&r=' + Math.random();
+(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(wfscr);
+})('//www.raspyfi.com/wp-admin/admin-ajax.php?action=wordfence_logHuman&hid=0CA90926B6E623A28B078FE53B213BCB'); 
+</script><script type="text/javascript" async="" data-rocketsrc="//www.raspyfi.com/wp-admin/admin-ajax.php?action=wordfence_logHuman&amp;hid=0CA90926B6E623A28B078FE53B213BCB&amp;r=0.4930569443386048" data-rocketoptimized="true"></script><script type="text/javascript" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/admin-ajax.php"></script><script type="text/javascript" async="" data-rocketsrc="//raspyfi.disqus.com/embed.js?pname=wordpress&amp;pver=2.74" data-rocketoptimized="true"></script><link rel="stylesheet" type="text/css" id="gravatar-card-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/services.css"><style type="text/css">a.PIN_1416095959652_pin_it_button_20 { cursor: pointer!important; background-repeat: none!important; background-size: 40px 60px!important; height: 20px!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; width: 40px!important; background-position: 0 -20px }
+a.PIN_1416095959652_pin_it_button_20:hover { background-position: 0 0px }
+a.PIN_1416095959652_pin_it_button_20:active, a.PIN_1416095959652_pin_it_button_20.PIN_1416095959652_hazClick { background-position: 0 -40px }
+a.PIN_1416095959652_pin_it_button_inline_20 { cursor: pointer!important; position: relative!important; display: inline-block!important; }
+a.PIN_1416095959652_pin_it_button_floating_20 { cursor: pointer!important; position: absolute!important; }
+a.PIN_1416095959652_pin_it_beside_20_pad { margin-right: 45px!important; }
+a.PIN_1416095959652_pin_it_button_en_20_red { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_rect_red_20_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_en_20_white { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_rect_white_20_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_en_20_gray { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_rect_gray_20_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_ja_20_red { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_ja_rect_red_20_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_ja_20_white { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_ja_rect_white_20_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_ja_20_gray { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_ja_rect_gray_20_1.png)!important; }
+a.PIN_1416095959652_pin_it_above_20 span.PIN_1416095959652_pin_it_button_count { background: transparent url(http://passets.pinterest.com/images/pidgets/count_north_white_rect_20_1.png) 0 0 no-repeat!important; background-size: 40px 29px!important; position: absolute!important; bottom: 21px!important; left: 0px!important; height: 29px!important; width: 40px!important; font: 12px Arial, Helvetica, sans-serif!important; line-height: 24px!important; text-indent: 0!important;}
+a.PIN_1416095959652_pin_it_button_20 span.PIN_1416095959652_pin_it_button_count { position: absolute!important; color: #777!important; text-align: center!important; text-indent: 0!important; }
+a.PIN_1416095959652_pin_it_beside_20 span.PIN_1416095959652_pin_it_button_count, a.PIN_1416095959652_pin_it_beside_20 span.PIN_1416095959652_pin_it_button_count i { background-color: transparent!important; background-repeat: no-repeat!important; background-image: url(http://passets.pinterest.com/images/pidgets/count_east_white_rect_20_1.png)!important; }
+a.PIN_1416095959652_pin_it_beside_20 span.PIN_1416095959652_pin_it_button_count { padding: 0 3px 0 10px!important; background-size: 45px 20px!important; background-position: 0 0!important; position: absolute!important; top: 0!important; left: 41px!important; height: 20px!important; font: 10px Arial, Helvetica, sans-serif!important; line-height: 20px!important; }
+a.PIN_1416095959652_pin_it_beside_20 span.PIN_1416095959652_pin_it_button_count i { background-position: 100% 0!important; position: absolute!important; top: 0!important; right: -2px!important; height: 20px!important; width: 2px!important; }
+a.PIN_1416095959652_pin_it_button_20.PIN_1416095959652_pin_it_above { margin-top: 20px!important; }
+a.PIN_1416095959652_pin_it_button_28 { cursor: pointer!important; background-repeat: none!important; background-size: 56px 84px!important; height: 28px!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; width: 56px!important; background-position: 0 -28px }
+a.PIN_1416095959652_pin_it_button_28:hover { background-position: 0 0px }
+a.PIN_1416095959652_pin_it_button_28:active, a.PIN_1416095959652_pin_it_button_28.PIN_1416095959652_hazClick { background-position: 0 -56px }
+a.PIN_1416095959652_pin_it_button_inline_28 { cursor: pointer!important; position: relative!important; display: inline-block!important; }
+a.PIN_1416095959652_pin_it_button_floating_28 { cursor: pointer!important; position: absolute!important; }
+a.PIN_1416095959652_pin_it_beside_28_pad { margin-right: 50px!important;}
+a.PIN_1416095959652_pin_it_button_en_28_red { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_rect_red_28_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_en_28_white { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_rect_white_28_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_en_28_gray { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_rect_gray_28_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_ja_28_red { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_ja_rect_red_28_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_ja_28_white { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_ja_rect_white_28_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_ja_28_gray { background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_ja_rect_gray_28_1.png)!important; }
+a.PIN_1416095959652_pin_it_button_en_16_red_round, a.PIN_1416095959652_pin_it_button_en_32_red_round { background-repeat: none!important; margin: 0!important; padding: 0!important; vertical-align: baseline!important; text-decoration: none!important; }
+a.PIN_1416095959652_pin_it_button_en_16_red_round { height: 16px!important; width: 16px!important; background-size: 16px 16px!important; background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_round_red_16_1.png)!important;}
+a.PIN_1416095959652_pin_it_button_en_32_red_round { height: 32px!important; width: 32px!important; background-size: 32px 32px!important; background-image: url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_round_red_32_1.png)!important;}
+a.PIN_1416095959652_pin_it_button_inline_en_16_red_round, a.PIN_1416095959652_pin_it_button_inline_en_32_red_round { position: relative!important; display: inline-block!important; }
+a.PIN_1416095959652_pin_it_button_floating_en_16_red_round, a.PIN_1416095959652_pin_it_button_floating_en_32_red_round  { position: absolute!important; }
+a.PIN_1416095959652_pin_it_button_28 span.PIN_1416095959652_pin_it_button_count { position: absolute!important; color: #777!important; text-align: center!important; text-indent: 0!important; }
+a.PIN_1416095959652_pin_it_above_28 span.PIN_1416095959652_pin_it_button_count { background: transparent url(http://passets.pinterest.com/images/pidgets/count_north_white_rect_28_1.png) 0 0 no-repeat!important; background-size: 56px 37px!important; position: absolute!important; bottom: 29px!important; left: 0px!important; height: 37px!important; width: 56px!important; font: 15px Arial, Helvetica, sans-serif!important; line-height: 28px!important; text-indent: 0!important;}
+a.PIN_1416095959652_pin_it_beside_28 span.PIN_1416095959652_pin_it_button_count, a.PIN_1416095959652_pin_it_beside_28 span.PIN_1416095959652_pin_it_button_count i { background-color: transparent!important; background-repeat: no-repeat!important; background-image: url(http://passets.pinterest.com/images/pidgets/count_east_white_rect_28_1.png)!important; }
+a.PIN_1416095959652_pin_it_beside_28 span.PIN_1416095959652_pin_it_button_count { padding: 0 3px 0 10px!important; background-size: 63px 28px!important; background-position: 0 0!important; position: absolute!important; top: 0!important; left: 57px!important; height: 28px!important; font: 12px Arial, Helvetica, sans-serif!important; line-height: 28px!important; }
+a.PIN_1416095959652_pin_it_beside_28 span.PIN_1416095959652_pin_it_button_count i { background-position: 100% 0!important; position: absolute!important; top: 0!important; right: -2px!important; height: 28px!important; width: 2px!important; }
+a.PIN_1416095959652_pin_it_button_28.PIN_1416095959652_pin_it_above { margin-top: 28px!important; }
+a.PIN_1416095959652_follow_me_button, a.PIN_1416095959652_follow_me_button i { background-size: 200px 60px!important; background: transparent url(http://passets.pinterest.com/images/pidgets/bfs1.png) 0 0 no-repeat }
+a.PIN_1416095959652_follow_me_button { cursor: pointer!important; color: #444!important; display: inline-block!important; font: bold normal normal 11px/20px "Helvetica Neue",helvetica,arial,san-serif!important; height: 20px!important; margin: 0!important; padding: 0!important; position: relative!important; text-decoration: none!important; text-indent: 19px!important; vertical-align: baseline!important;}
+a.PIN_1416095959652_follow_me_button:hover { background-position: 0 -20px}
+a.PIN_1416095959652_follow_me_button:active  { background-position: 0 -40px}
+a.PIN_1416095959652_follow_me_button b { position: absolute!important; top: 3px!important; left: 3px!important; height: 14px!important; width: 14px!important; background-size: 14px 14px!important; background-image: url(http://passets.pinterest.com/images/pidgets/log1.png)!important; }
+a.PIN_1416095959652_follow_me_button i { position: absolute!important; top: 0!important; right: -4px!important; height: 20px!important; width: 4px!important; background-position: 100% 0px!important; }
+a.PIN_1416095959652_follow_me_button:hover i { background-position: 100% -20px!important;  }
+a.PIN_1416095959652_follow_me_button:active i { background-position: 100% -40px!important; }
+a.PIN_1416095959652_follow_me_button_28, a.PIN_1416095959652_follow_me_button_28 i { background-size: 400px 84px!important; background: transparent url(http://passets.pinterest.com/images/pidgets/bft1.png) 0 0 no-repeat }
+a.PIN_1416095959652_follow_me_button_28 { cursor: pointer!important; color: #444!important; display: inline-block!important; font: bold normal normal 13px/28px "Helvetica Neue",helvetica,arial,san-serif!important; height: 28px!important; margin: 0!important; padding: 0!important; position: relative!important; text-decoration: none!important; text-indent: 33px!important; vertical-align: baseline!important;}
+a.PIN_1416095959652_follow_me_button_28:hover { background-position: 0 -28px}
+a.PIN_1416095959652_follow_me_button_28:active  { background-position: 0 -56px}
+a.PIN_1416095959652_follow_me_button_28 b { position: absolute!important; top: 5px!important; left: 10px!important; height: 18px!important; width: 18px!important; background-size: 18px 18px!important; background-image: url(http://passets.pinterest.com/images/pidgets/smt1.png)!important; }
+a.PIN_1416095959652_follow_me_button_28 i { position: absolute!important; top: 0!important; right: -10px!important; height: 28px!important; width: 10px!important; background-position: 100% 0px!important; }
+a.PIN_1416095959652_follow_me_button_28:hover i { background-position: 100% -28px!important;  }
+a.PIN_1416095959652_follow_me_button_28:active i { background-position: 100% -56px!important; }
+span.PIN_1416095959652_embed_pin { -webkit-font-smoothing: antialiased!important; cursor: pointer!important; display: inline-block!important; text-align: center!important; width: 237px!important; overflow: hidden!important; vertical-align: top!important; }
+span.PIN_1416095959652_embed_pin.PIN_1416095959652_fancy { background: #fff!important; box-shadow: 0 1px 3px rgba(0, 0, 0, .33)!important; border-radius: 3px!important; }
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link { display: block!important;  margin: 0 auto!important; padding: 0!important; position: relative!important;  line-height: 0}
+span.PIN_1416095959652_embed_pin img.PIN_1416095959652_embed_pin_link_img { border: 0!important; margin: 0!important; padding: 0!important; border-bottom: 1px solid rgba(0, 0, 0, .09)!important;}
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_repin { left: 12px!important; top: 12px!important; position: absolute!important; height: 20px!important; width: 40px!important; background-size: 40px 60px!important;  background: transparent url(http://passets.pinterest.com/images/pidgets/pinit_bg_en_rect_red_20_1.png) }
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_repin_ja { left: 12px!important; top: 12px!important; position: absolute!important; height: 20px!important; width: 40px!important; background-size: 40px 60px!important; background: transparent url(http://passets.pinterest.com/images/pidgets/pinit_bg_ja_rect_red_20_1.png) }
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_repin:hover, span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_repin_ja:hover { background-position: 0 -20px!important; }
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_repin.PIN_1416095959652_hazClick, span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_repin_ja.PIN_1416095959652_hazClick { background-position: 0 -40px!important; }
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_play { display: block!important; width: 50px!important; white-space: pre!important; font-family: "Helvetica Neue",helvetica,arial,san-serif!important; font-weight: bold!important; font-style: normal!important; font-size: 9px!important; line-height: 12px!important; margin: 0!important; position: absolute!important; bottom: 12px!important; left: 12px!important; text-decoration: none!important; background: rgba(0, 0, 0, .4)!important; color: rgba(255, 255, 255, 1)!important; border-radius: 13px!important; padding: 5px 0!important; box-shadow: 0 0 2px rgba(0, 0, 0, .2)!important; border: 2px solid rgba(255, 255, 255, .68)!important;}
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_link i.PIN_1416095959652_play:hover { background: rgba(0, 0, 0, .8)!important; color: #fff!important; }
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_desc { color: #363636!important; white-space: normal!important; border-bottom: 1px solid rgba(0, 0, 0, .09)!important;!important; display: block!important; font-family: "Helvetica Neue", arial, sans-serif!important; font-size: 13px!important; line-height: 17px!important; padding: 12px!important; text-align: left!important; }
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_attrib { color: #a8a8a8!important; font-family: "Helvetica Neue", sans-serif!important; font-size: 11px!important; line-height: 18px!important; margin-top: 12px!important; font-weight: bold!important; display: block!important;}
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_attrib img.PIN_1416095959652_embed_pin_attrib_icon { height: 16px!important; width: 16px!important; vertical-align: middle!important; padding: 0!important; margin: 0 5px 0 0!important; float: left!important;}
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_attrib a { color: #a8a8a8!important; text-decoration: none!important;}
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_stats { display: block!important; }
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_stats span.PIN_1416095959652_embed_pin_stats_repin_count, span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_stats span.PIN_1416095959652_embed_pin_stats_like_count { display: inline-block!important; padding-left: 17px!important; padding-right: 10px!important; color: #a8a8a8!important; font-family: "Helvetica Neue", sans-serif!important; font-size: 11px!important; line-height: 12px!important; margin-top: 12px!important; font-weight: bold!important; }
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_stats span.PIN_1416095959652_embed_pin_stats_repin_count { background: url(data:image/png!important;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAALCAAAAABq7uO+AAAASklEQVQI10WNMQrAMBRCvf/Z3pQcImPplsIPdqhNXOSJqLxVtnWQsuUO9IM3cHlV8dSSDZQHAOPH2YA2FU+qtH7MRhaVh/xt/PQCEW6N4EV+CPEAAAAASUVORK5CYII=) 0 0 no-repeat!important; }
+span.PIN_1416095959652_embed_pin span.PIN_1416095959652_embed_pin_stats span.PIN_1416095959652_embed_pin_stats_like_count { background: url(data:image/png!important;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAAAAAClR+AmAAAAUElEQVR4AT2HMQpFIQwEc/+zbXhFLBW8QUihIAT2E8Q/xe6M0Jv2zK7NKUcBzAlAjzjqtdZl4c8S2nOjMPS6BoWMr/wLVnAbYJs3mGMkXzx+OeRqUf5HHRoAAAAASUVORK5CYII=) 0 2px no-repeat!important; }
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_text { padding: 12px!important; position: relative!important; text-decoration: none!important; display: block!important; font-weight: bold!important; color: #b7b7b7!important; font-family: "Helvetica Neue", arial, sans-serif!important; font-size: 11px!important; line-height: 14px!important; height: 30px!important; text-align: left!important; }
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_text:hover { background: #eee!important;}
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_text img.PIN_1416095959652_embed_pin_text_avatar { border-radius: 15px!important; overflow: hidden!important; height: 30px!important; width: 30px!important; vertical-align: middle!important; margin: 0 8px 12px 0!important; float: left!important;}
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_text span.PIN_1416095959652_embed_pin_text_container_pinner, span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_text span.PIN_1416095959652_embed_pin_text_container_board { display: block!important; width: 175px!important; white-space: nowrap!important; overflow: hidden!important; text-overflow: ellipsis!important;}
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_text span.PIN_1416095959652_embed_pin_text_container_pinner { color: #777!important;}
+span.PIN_1416095959652_embed_pin a.PIN_1416095959652_embed_pin_text b.PIN_1416095959652_embed_pin_link_shield { position: absolute!important; top: 0!important; left: 0!important; height: 100%!important; width: 100%!important; }
+span.PIN_1416095959652_embed_grid { display: inline-block!important; margin: 0!important; padding:10px 0!important; position: relative!important; text-align: center}
+span.PIN_1416095959652_embed_grid.PIN_1416095959652_fancy { background: #fff!important; box-shadow: 0 0 3px #aaa!important; border-radius: 3px!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd { display: block!important; margin: 0 10px!important; padding: 0!important; height: 45px!important; position: relative!important; background: #fff}
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a.PIN_1416095959652_avatar { position: absolute!important; top: 0!important; left: 0!important; height: 36px!important; width: 36px!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a.PIN_1416095959652_avatar::before { position: absolute!important; content:""!important; z-index: 2!important; top: 0!important; left: 0!important; right: 0!important; bottom: 0!important; box-shadow: inset 0 0 2px #888!important;  border-radius: 3px!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a.PIN_1416095959652_avatar img { position: relative!important; height: 36px!important; width: 36px!important; margin: 0!important; padding: 0!important; border-radius: 3px!important; border: none!important;}
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a { text-decoration: none!important; background: transparent!important; cursor: pointer!important; white-space: nowrap!important; position: absolute!important; left: 44px!important; text-align: left!important; overflow: hidden!important; text-overflow: ellipsis!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a:hover { text-decoration: none!important; background: #fff!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a:active { text-decoration: none!important; background: #fff!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a.PIN_1416095959652_embed_grid_first { top: 2px!important; font-family: helvetica, sans-serif!important; font-weight: bold!important; color:#333!important; font-size: 14px!important; line-height: 16px!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a.PIN_1416095959652_embed_grid_second { bottom: 11px!important; font-family: helvetica, sans-serif!important; color:#8e8e8e!important; font-size: 12px!important; line-height: 14px!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_hd a.PIN_1416095959652_embed_grid_mid { top: 12px!important; font-family: helvetica, sans-serif!important; font-weight: bold!important; color:#333!important; font-size: 14px!important; line-height: 16px!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_bd { display:block!important; margin: 0 10px!important; border-radius: 2px!important; position: relative!important; overflow: hidden }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_scrolling_okay { overflow: auto!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_bd span.PIN_1416095959652_embed_grid_ct { display:block!important; position: relative!important; overflow: hidden!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_bd a.PIN_1416095959652_embed_grid_th { cursor: pointer!important; display: inline-block!important; position: absolute!important; overflow: hidden!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_bd a.PIN_1416095959652_embed_grid_th::before { position: absolute!important; content:""!important; z-index: 2!important; top: 0!important; left: 0!important; right: 0!important; bottom: 0!important; box-shadow: inset 0 0 2px #888!important; }
+span.PIN_1416095959652_embed_grid span.PIN_1416095959652_embed_grid_bd a.PIN_1416095959652_embed_grid_th img.PIN_1416095959652_embed_grid_img { border: none!important; position: absolute!important; top: 50%!important; left: 0!important; }
+a.PIN_1416095959652_embed_grid_ft { cursor: pointer!important; text-shadow: 0 1px #fff!important; display: block!important; text-align: center!important; border: 1px solid #ccc!important; margin: 10px 10px 0!important; height: 31px!important; line-height: 30px!important;border-radius: 2px!important; text-decoration: none!important; font-family: Helvetica!important; font-weight: bold!important; font-size: 13px!important; color: #746d6a!important; background: #f4f4f4 url(http://passets.pinterest.com/images/pidgets/board_button_link.png) 0 0 repeat-x}
+a.PIN_1416095959652_embed_grid_ft:hover { text-decoration: none!important; background: #fefefe url(http://passets.pinterest.com/images/pidgets/board_button_hover.png) 0 0 repeat-x}
+a.PIN_1416095959652_embed_grid_ft:active { text-decoration: none!important; background: #e4e4e4 url(http://passets.pinterest.com/images/pidgets/board_button_active.png) 0 0 repeat-x}
+a.PIN_1416095959652_embed_grid_ft span.PIN_1416095959652_embed_grid_ft_logo { vertical-align: top!important; display: inline-block!important; margin-left: 2px!important; height: 30px!important; width: 66px!important; background: transparent url(http://passets.pinterest.com/images/pidgets/board_button_logo.png) 50% 48% no-repeat!important; }
+.PIN_1416095959652_hidden { display:none!important; }</style><script data-rocketsrc="//a.disquscdn.com/next/alfie.f51946af45e0b561c60f768335c9eb79.js" data-rocketoptimized="true" async="" charset="UTF-8"></script></head>
+<body class="single single-post postid-321 single-format-standard custom-background" data-twttr-rendered="true">
+<div id="container" class="hfeed">
+<div id="header">
+<div id="logo">
+<a href="http://www.raspyfi.com/"><img src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/raspyfilogo200.png" width="200" height="66" alt="RaspyFi"></a>
+</div> 
+<div id="brd-head" class="gen-content">
+<div id="Adsenseheader">
+<script async="" data-rocketsrc="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" type="text/rocketscript" data-rocketoptimized="true"></script>
+ 
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-0839303782430158" data-ad-slot="9043495608" data-adsbygoogle-status="done"><!--No ad requested because of display:none on the adsbygoogle tag--></ins>
+<script type="text/rocketscript" data-rocketoptimized="true">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<ul id="menu-main" class="menu l_tinynav1"><li id="menu-item-42" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-42"><a href="http://www.raspyfi.com/">Home</a></li>
+<li id="menu-item-41" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-41"><a href="http://www.raspyfi.com/project/">Project</a></li>
+<li id="menu-item-215" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-215"><a href="http://www.raspyfi.com/raspberry-pi-usb-dac-and-raspyfi-supported-dacs/">Supported Dacs</a></li>
+<li id="menu-item-78" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78"><a href="http://www.raspyfi.com/download/">Download</a></li>
+<li id="menu-item-43" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-43"><a href="http://www.raspyfi.com/category/docs/">Documentation</a>
+<ul class="sub-menu">
+<li id="menu-item-503" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-503"><a href="http://www.raspyfi.com/category/docs/">Documentation</a></li>
+<li id="menu-item-46" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-46"><a href="http://www.raspyfi.com/category/tutorials/">Tutorials</a></li>
+</ul>
+</li>
+<li id="menu-item-37" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37"><a href="http://www.raspyfi.com/donate-2/">Donate</a></li>
+<li id="menu-item-38" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-38"><a href="http://www.raspyfi.com/credits/">Credits</a></li>
+<li id="menu-item-125" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-125"><a href="http://www.raspyfi.com/request-a-feature/">Request a feature</a></li>
+<li id="menu-item-128" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-128"><a href="http://www.raspyfi.com/forum/">Forum</a></li>
+</ul><select id="tinynav1" class="tinynav tinynav1" sb="44730956" style="display: none;"><option value="http://www.raspyfi.com/">Home</option><option value="http://www.raspyfi.com/project/">Project</option><option value="http://www.raspyfi.com/raspberry-pi-usb-dac-and-raspyfi-supported-dacs/">Supported Dacs</option><option value="http://www.raspyfi.com/download/">Download</option><option value="http://www.raspyfi.com/category/docs/">Documentation</option><option value="http://www.raspyfi.com/category/docs/">- Documentation</option><option value="http://www.raspyfi.com/category/tutorials/">- Tutorials</option><option value="http://www.raspyfi.com/donate-2/">Donate</option><option value="http://www.raspyfi.com/credits/">Credits</option><option value="http://www.raspyfi.com/request-a-feature/">Request a feature</option><option value="http://www.raspyfi.com/forum/" selected="selected">Forum</option></select><div id="sb-holder_44730956" class="sb-holder"><a id="sb-toggle_44730956" href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#" class="sb-toggle"></a><a id="sb-selector_44730956" href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#" class="sb-selector">Forum</a><ul id="sb-options_44730956" class="sb-options" style="display: none;"><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/" rel="http://www.raspyfi.com/">Home</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/project/" rel="http://www.raspyfi.com/project/">Project</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/raspberry-pi-usb-dac-and-raspyfi-supported-dacs/" rel="http://www.raspyfi.com/raspberry-pi-usb-dac-and-raspyfi-supported-dacs/">Supported Dacs</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/download/" rel="http://www.raspyfi.com/download/">Download</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/category/docs/" rel="http://www.raspyfi.com/category/docs/">Documentation</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/category/docs/" rel="http://www.raspyfi.com/category/docs/">- Documentation</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/category/tutorials/" rel="http://www.raspyfi.com/category/tutorials/">- Tutorials</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/donate-2/" rel="http://www.raspyfi.com/donate-2/">Donate</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/credits/" rel="http://www.raspyfi.com/credits/">Credits</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/request-a-feature/" rel="http://www.raspyfi.com/request-a-feature/">Request a feature</a></li><li><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#http://www.raspyfi.com/forum/" rel="http://www.raspyfi.com/forum/" class="sb-focus">Forum</a></li></ul></div>
+</div> 
+<div id="wrapper" class="clearfix">
+<link rel="icon" href="http://www.raspyfi.com/wp-content/uploads/2013/07/icon.png" type="image/png">
+<div id="content" class="grid col-620">
+<div id="post-321" class="post-321 post type-post status-publish format-standard hentry category-docs category-tutorials tag-debian tag-install tag-raspyfi tag-wi-fi">
+<h1 class="post-title">Wi-fi on Raspberry Pi, a simple guide</h1>
+<div class="post-meta">
+<span class="meta-prep meta-prep-author posted">Pubblicato il </span><a href="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/Wi-fi on Raspberry Pi, a simple guide - RaspyFi.html" title="17:24" rel="bookmark"><span class="timestamp">19 marzo 2013</span></a><span class="byline"> da </span><span class="author vcard"><a class="url fn n" href="http://www.raspyfi.com/author/admin/" title="Vedi tutti gli articoli di admin">admin</a></span>
+<span class="comments-link">
+<span class="mdash">—</span>
+<a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#comments" title="Commenti a Wi-fi on Raspberry Pi, a simple guide"><span class="dsq-postid" rel="321 http://www.raspyfi.com/?p=321">31 Commenti ↓</span></a> </span>
+</div> 
+<div class="post-entry">
+<div class="flare-horizontal flare-backgroundcolor-dark enablecounters flare-hidden countloaded countloadfinished" data-humbleflarecount="5">
+<span class="loading"><span></span></span>
+<span class="flare-total first"><strong>92</strong> Flares</span>
+<span class="flare-total last"><strong>92</strong> Flares</span>
+<span class="close">
+<a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#close">×</a>
+</span>
+</div><p>Since the Raspberry Pi comes only with a wired network, it could be useful for lot of us to get it wi-fi ready. Wi-fi on Raspberry Pi can be achieved with little effort and at cheap expences.<br>
+We do only require a compatible wi-fi dongle, and the best candidate for the job is the Edimax EW-7811Un.<br>
+These are the features:</p>
+<ul>
+<li>Supports 150 Mbps 802.11n, so if you have a N network, you’ll have enough bandwith to stream even Hi-res FLACs</li>
+<li>Low power consumption, it can work directly attached to the Pi withouth a powered usb hub</li>
+<li>Works automatically with Raspbian, since it’s drivers are included</li>
+<li>It’s very small, so there’s plenty of space left on the Pi to attach your USB DAC or USB Dongle</li>
+<li>It’s quite cheap, you can find easily at prices above 10 euros (see later)</li>
+</ul>
+<p>You can buy it on Ebay<script type="text/rocketscript" data-rocketoptimized="true">// <![CDATA[
+document.write('<scr'+'ipt src="http://rover.ebay.com/ar/1/55242/1?lt=9&#038;adtype=3&#038;pubid=5575038230&#038;toolid=10001&#038;campid=5337264535&#038;customid=&#038;uq=Edimax+EW-7811Un&#038;sellerId=&#038;ex_kw=&#038;sortBy=12&#038;catId=&#038;minPrice=&#038;maxPrice=&#038;laction=_self&#038;ltext=here&#038;n3y=1&#038;v1e=1&#038;u7v=1&#038;a3h=1&#038;def=a3h&#038;ig=1&#038;mpt='+Math.floor(Math.random()*999999999)+'"></scr'+'ipt>');
+// ]]&gt;</script><script data-rocketsrc="http://rover.ebay.com/ar/1/55242/1?lt=9&amp;adtype=3&amp;pubid=5575038230&amp;toolid=10001&amp;campid=5337264535&amp;customid=&amp;uq=Edimax+EW-7811Un&amp;sellerId=&amp;ex_kw=&amp;sortBy=12&amp;catId=&amp;minPrice=&amp;maxPrice=&amp;laction=_self&amp;ltext=here&amp;n3y=1&amp;v1e=1&amp;u7v=1&amp;a3h=1&amp;def=a3h&amp;ig=1&amp;mpt=64866493" type="text/rocketscript" data-rocketoptimized="true"></script><a href="http://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=9&ff2=1&campid=5337264535&toolid=10001&pub=5575038230&customid=&icep_uq=Edimax%20EW-7811Un&icep_ex_kw=&icep_sortBy=12&icep_catId=&icep_minPrice=&icep_maxPrice=&ipn=psmain&icep_vectorid=229466&kwid=902099&mtid=824&kw=lg" target="_self">here<img style="text-decoration:none; border: 0; padding: 0; margin: 0;" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/1"></a></p>
+<noscript>&lt;a target="_self" href="http://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_ff3=9&amp;#038;pub=5575038230&amp;#038;toolid=10001&amp;#038;campid=5337264535&amp;#038;customid=&amp;#038;icep_uq=Edimax+EW-7811Un&amp;#038;icep_sellerId=&amp;#038;icep_ex_kw=&amp;#038;icep_sortBy=12&amp;#038;icep_catId=&amp;#038;icep_minPrice=&amp;#038;icep_maxPrice=&amp;#038;ipn=psmain&amp;#038;icep_vectorid=229466&amp;#038;kwid=902099&amp;#038;mtid=824&amp;#038;kw=lg"&gt;here&lt;/a&gt;&lt;img style="text-decoration:none;border:0;padding:0;margin:0;" src="http://rover.ebay.com/roverimp/1/711-53200-19255-0/1?ff3=9&amp;#038;pub=5575038230&amp;#038;toolid=10001&amp;#038;campid=5337264535&amp;#038;customid=&amp;#038;uq=Edimax+EW-7811Un&amp;#038;mpt=[CACHEBUSTER]"&gt;</noscript>
+<p>or&nbsp;<a href="http://www.amazon.com/gp/product/B003MTTJOY/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B003MTTJOY&linkCode=as2&tag=ras05-20">here</a><img style="border: none !important; margin: 0px !important; display: none !important;" alt="" src="http://www.assoc-amazon.com/e/ir?t=ras05-20&l=as2&o=1&a=B003MTTJOY" width="1" height="1" border="0"> on Amazon .</p>
+<p>Now we’ll start the setup of the WI-Fi on Raspberry Pi. RaspyFi comes with Wicd-curses already installed and running, this a user friendly gui &nbsp;wi-fi setup utility. With Wicd-curses the setup of Wi-Fi on Raspberry Pi is simple and straightforwarding. You should access the Pi’s shell, this can be done in 2 ways:</p>
+<ul>
+<li>Get a monitor and a keyboard attached to the Pi</li>
+<li>Connect trought SSH, the Pi has to be connected to a wired network to do this. Refer to <a href="http://www.raspyfi.com/raspyfi-quick-start-guide/">this guide</a> to do this.</li>
+</ul>
+<p>&nbsp;</p>
+<p>If you’re using Raspbian, and you’ve not installed Wicd-curses just type:<br>
+<strong>sudo apt-get update<br>
+sudo apt-get install wicd-curses</strong><br>
+Ok, now we are ready to start, type:<br>
+<strong>sudo wicd-curses</strong><br>
+You’ll get a list of the wireless network found by the Raspberry PI</p>
+<p><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/raspberrywi-fi/" rel="attachment wp-att-333"><img class="aligncenter size-full wp-image-333" alt="raspberry wi-fi" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/raspberrywi-fi.png" width="664" height="460"></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Now, you can select your Wi-fi Network, just highlight it with arrow keys and press right arrow key to edit its properties:</p>
+<p><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/raspberrywi-fi1/" rel="attachment wp-att-334"><img class="aligncenter size-full wp-image-334" alt="raspberry wi-fi1" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/raspberrywi-fi1.png" width="664" height="460"></a></p>
+<p>&nbsp;</p>
+<p>Sorry for Italian language, (not being nationalist!!) but you should be able to guess what these lines mean. You just insert the WEP or WPA KEY. If you wish, you can assing a static ip, configure alternative dns and so on. Remember to check the auto connection.</p>
+<p>If you wish to have static ip, just put the ip you desire (e.g. 192.168.1.3), the subnet mask (255.255.255.0) and your router’s ip (e.g.: 192.168.1.1). Please note that the Ip of the Raspberry Pi and the gateway ip should have the same index, so if your router has 192.168.1.ip then also the raspberry pi should have the same, the only thing that will change is the last ip digits (192.168.1.ip).</p>
+<p>&nbsp;</p>
+<p>When you’re done, just press F10 to save, then it should connect!</p>
+<p>&nbsp;</p>
+<p>Now you’ve Wi-Fi on Raspberry Pi! Feel confident to try other wi-fi dongles other than the one suggested here. You can check the <a href="http://elinux.org/RPi_VerifiedPeripherals#Working_USB_Wifi_Adapters">Raspberry Pi compatiblity list</a>.</p>
+<p>The Main WICD-CURSES windows, will also tell you the ip of your Raspberry Pi, so you can be able to connect to it via GMPC or your preferred mpd client.</p>
+<p>&nbsp;</p>
+<h1>UPDATE</h1>
+<p>Since I got some reports of Wi-Fi dongle not being recognized, this is how you can sort it out:</p>
+<div>Enter in wicd-curses,</div>
+<div></div>
+<div>sudo wicd-curses</div>
+<div></div>
+<div>then press P (that stands for preferences). You’ll find that there’s a field called wireless interface, which is empty. Just write wlan0</div>
+<div>in it. Then F10 to save.<p></p>
+<p><a href="http://www.servimg.com/image_preview.php?i=352&u=15827287" target="_blank" rel="nofollow"><img alt="" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/immagi10.jpg"></a></p></div>
+<div>Then, back to the main screen, hit R to refresh, et voilà!!!<br>
+<a href="http://www.servimg.com/image_preview.php?i=353&u=15827287" target="_blank" rel="nofollow"><img alt="" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/immagi11.jpg"></a></div>
+<div>
+</div>
+<div>Thanks to Andrea Zani from <a href="http://www.tforumhifi.com/t32285p750-raspyfi-raspberry-pi-voyage-mpd-progetto-per-un-ottima-sorgente-low-cost#554382">tforum</a> for the hint!</div>
+</div> 
+<div class="navigation">
+<div class="previous">‹ <a href="http://www.raspyfi.com/power-supply-for-raspberry-pi-what-you-should-know-about/" rel="prev">Power Supply for Raspberry Pi, what you should know about</a></div>
+<div class="next"><a href="http://www.raspyfi.com/raspberry-pi-usb-audio-fix/" rel="next">Raspberry Pi Usb Audio fix</a> ›</div>
+</div> 
+<div class="post-data">
+Taggato con: <a href="http://www.raspyfi.com/tag/debian/" rel="tag">debian</a>, <a href="http://www.raspyfi.com/tag/install/" rel="tag">install</a>, <a href="http://www.raspyfi.com/tag/raspyfi/" rel="tag">raspyfi</a>, <a href="http://www.raspyfi.com/tag/wi-fi/" rel="tag">wi-fi</a><br>
+Pubblicato in <a href="http://www.raspyfi.com/category/docs/" title="Visualizza tutti gli articoli in Documentation">Documentation</a>, <a href="http://www.raspyfi.com/category/tutorials/" title="Visualizza tutti gli articoli in Tutorials">Tutorials</a>
+</div> 
+<div class="post-edit"></div>
+</div> 
+<div id="disqus_thread"><iframe id="dsq-232" data-disqus-uid="232" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/saved_resource(1).html" style="width: 100% !important; border: none !important; overflow: hidden !important; height: 5738px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+<script type="text/rocketscript" data-rocketoptimized="true">
+/* <![CDATA[ */
+    var disqus_url = 'http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/';
+    var disqus_identifier = '321 http://www.raspyfi.com/?p=321';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'raspyfi';
+    var disqus_title = "Wi-fi on Raspberry Pi, a simple guide";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = '?cf_action=sync_comments&post_id=321';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+<script type="text/rocketscript" data-rocketoptimized="true">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+            {
+                'author_name':    "RaspyFi quick start guide - RaspyFi",
+                'author_url':    "http:\/\/www.raspyfi.com\/raspyfi-quick-start-guide\/",
+                'date':            "03\/19\/2013 06:28 PM",
+                'excerpt':        "[...] \/\/ If you wish to use your RaspyFi&#8217;s powered Pi via W-Fi check the WI-FI Configuration Guide\/\/ [...] ",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Airplay mit Raspberry Pi &#8211; der einfache Weg | Christian Leitgeb",
+                'author_url':    "http:\/\/christianleitgeb.at\/?p=19",
+                'date':            "11\/23\/2013 12:44 AM",
+                'excerpt':        "[...] Falls WLAN verwendet wird, bitte dieses Tutorial [...] ",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Finally got my WiFi working!! | Raspberry Pi Wonderland",
+                'author_url':    "http:\/\/raspberrypiwonderland.wordpress.com\/2013\/12\/20\/finally-got-my-wifi-working\/",
+                'date':            "12\/20\/2013 07:01 AM",
+                'excerpt':        "[...] tried wicd-curses as well. I think it is good and it is able to detect the WiFi available. However, ...",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "More RPi Adventures | Remixes and Replications",
+                'author_url':    "http:\/\/serendipity007.wordpress.com\/2013\/12\/28\/more-rpi-adventures\/",
+                'date':            "12\/29\/2013 07:23 AM",
+                'excerpt':        "[...] bluetooth but not what you had to do for wifi, and it confused me). There&#8217;s a great tutorial here ...",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Raspberry pi wifi | msoede.dk",
+                'author_url':    "http:\/\/msoede.dk\/?p=72",
+                'date':            "02\/15\/2014 04:53 PM",
+                'excerpt':        "[...] SOURCE [...] ",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Raspberry PI Wifi | World of Nogarth",
+                'author_url':    "http:\/\/www.worldofnogarth.co.uk\/?p=136",
+                'date':            "03\/03\/2014 11:25 PM",
+                'excerpt':        "[...] Credit to http:\/\/www.raspyfi.com\/wi-fi-on-raspberry-pi-a-simple-guide\/ [...] ",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "PiFaceCAD Weather Display Console Build Out | THE UPWARD SPIRAL",
+                'author_url':    "http:\/\/waynedgrant.wordpress.com\/2014\/07\/19\/pifacecad-weather-display-console-build-out\/",
+                'date':            "07\/19\/2014 05:20 PM",
+                'excerpt':        "[...] as I tried and failed to set the wireless adapter up on the Pi. I then stumbled on and ...",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "Raspberry Pi Model B+: upgrades overview",
+                'author_url':    "http:\/\/volumio.org\/raspberry-pi-model-b-plus\/",
+                'date':            "08\/05\/2014 11:58 PM",
+                'excerpt':        "[...] people using their Pi for Audio purposes will benefit of that upgrade (unless you&#8217;re using a wlan stick, a ...",
+                'type':            "pingback"            }
+,            {
+                'author_name':    "行云流水 &raquo; 树莓派捣鼓记",
+                'author_url':    "http:\/\/waterflow.sinaapp.com\/raspberry_pi_adventure\/",
+                'date':            "08\/12\/2014 05:25 AM",
+                'excerpt':        "[...] http:\/\/www.raspyfi.com\/wi-fi-on-raspberry-pi-a-simple-guide [...] ",
+                'type':            "pingback"            }
+        ],
+        'trackback_url': "http:\/\/www.raspyfi.com\/wi-fi-on-raspberry-pi-a-simple-guide\/trackback\/"    };
+/* ]]> */
+</script>
+<script type="text/rocketscript" data-rocketoptimized="true">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+</div> 
+<div id="widgets" class="grid col-300 fit">
+<script async="" data-rocketsrc="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" type="text/rocketscript" data-rocketoptimized="true"></script>
+ 
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-0839303782430158" data-ad-slot="4613296003" data-adsbygoogle-status="done"><!--No ad requested because of display:none on the adsbygoogle tag--></ins>
+<script type="text/rocketscript" data-rocketoptimized="true">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<div id="text-2" class="widget-wrapper widget_text"> <div class="textwidget">RaspyFi is a brand new Linux Distro made specifically for the Raspberry Pi. It aims to fully integrate Mpd into current debian realeases and to optimize it for Audiophile-quality music playback. The final result is aimed to resemble the notorius Voyage-mpd distro, but tweaked and optimized for the little arm computer. It will definitely turn it in a cheap and low-powered audiophile source.</div>
+</div><div id="text-10" class="widget-wrapper widget_text"> <div class="textwidget"><div class="fluid-width-video-wrapper" style="padding-top: 84.5070422535211%;"><object id="fitvid84149"><param name="movie" value="http://togo.ebay.com/togo/multi.swf?2008013100"><param name="flashvars" value="base=http://togo.ebay.com/togo/&amp;lang=en-us&amp;itemid=121166740545,251303380072,190887602462,141021544210,190884575201,151071312034&amp;query=usb%20dac&amp;campid=sidebar"><embed src="http://togo.ebay.com/togo/multi.swf?2008013100" type="application/x-shockwave-flash" width="355" height="300" flashvars="base=http://togo.ebay.com/togo/&amp;lang=en-us&amp;itemid=121166740545,251303380072,190887602462,141021544210,190884575201,151071312034&amp;query=usb%20dac&amp;campid=sidebar"></object></div></div>
+</div><div id="text-8" class="widget-wrapper widget_text"> <div class="textwidget"><script language="JavaScript1.1" type="text/rocketscript" data-rocketoptimized="true">
+	document.write("<sc"+"ript language='JavaScript1.1' src='http://rover.ebay.com/ar/1/711-53200-19255-28/1?campid=5337305539&toolid=711532001925528&customid=&mpt=" + Math.floor(Math.random()*999999999999) + "&adtype=3&size=160x600&mpvc='></sc"+"ript>");
+</script><script language="JavaScript1.1" data-rocketsrc="http://rover.ebay.com/ar/1/711-53200-19255-28/1?campid=5337305539&amp;toolid=711532001925528&amp;customid=&amp;mpt=196864346274&amp;adtype=3&amp;size=160x600&amp;mpvc=" type="text/rocketscript" data-rocketoptimized="true"></script><div id="foldcheck731615499166"><script type="text/rocketscript" data-rocketsrc="http://img-cdn.mediaplex.com/0/documentwrite.js" data-rocketoptimized="true"></script><script type="text/rocketscript" data-rocketsrc="http://img-cdn.mediaplex.com/0/711/dapAdChoice.js" data-rocketoptimized="true"></script>        <iframe id="iframe731615499166" width="0" height="0" border="0" style="width: 0; height: 0; border: none;" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/engagement.html"></iframe><div class="fluid-width-video-wrapper" style="padding-top: 375%;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="https://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" id="13129181" name="movie13129181"><param name="FlashVars" value="clickTAG=http://rover.ebay.com%2Frover%2F1%2F711-53200-19255-28%2F1%3Fmpt%3D196864346274%26toolid%3D711532001925528%26customid%3D%26campid%3D5337305539%26imp_rvr_id%3D731615499166%26mpcr%3D13129181%26mpcrset%3Droot%26ir_DAP_M2%3D13129181%26ff7%3D%26ff1%3D%26ff10%3D13129181%26mpcr%3D13129181&amp;clickTag=http://rover.ebay.com%2Frover%2F1%2F711-53200-19255-28%2F1%3Fmpt%3D196864346274%26toolid%3D711532001925528%26customid%3D%26campid%3D5337305539%26imp_rvr_id%3D731615499166%26mpcr%3D13129181%26mpcrset%3Droot%26ir_DAP_M2%3D13129181%26ff7%3D%26ff1%3D%26ff10%3D13129181%26mpcr%3D13129181&amp;clickTag1=http://rover.ebay.com%2Frover%2F1%2F711-53200-19255-28%2F1%3Fmpt%3D196864346274%26toolid%3D711532001925528%26customid%3D%26campid%3D5337305539%26imp_rvr_id%3D731615499166%26mpcr%3D13129181%26mpcrset%3Droot%26ir_DAP_M2%3D13129181%26ff7%3D%26ff1%3D%26ff10%3D13129181%26mpcr%3D13129181&amp;url=http%253A%252F%252Fwww.raspyfi.com%252Fwi-fi-on-raspberry-pi-a-simple-guide%252F"><param name="movie" value="http://img-cdn.mediaplex.com/0/711/53200/89895_General_Dynamic_HTML_4_160x600.swf?ir_DAP_M0=0&amp;ir_DAP_M1=711532001925528&amp;ir_DAP_M2=13129181&amp;ir_DAP_M3=&amp;ir_DAP_M4=&amp;ir_DAP_M5=&amp;ir_DAP_M6=&amp;ir_DAP_M7=&amp;ir_DAP_M8=&amp;ir_DAP_M9=&amp;ir_DAP_M10=&amp;ir_DAP_I6=0&amp;dap3_template_id=13129181&amp;rvr_id=731615499166&amp;ir_DAP_I5=1"><param name="wmode" value="opaque"><param name="allowscriptaccess" value="always"><embed wmode="opaque" allowscriptaccess="always" name="711/53200/89895_General_Dynamic_HTML_4_160x600." src="http://img-cdn.mediaplex.com/0/711/53200/89895_General_Dynamic_HTML_4_160x600.swf?ir_DAP_M0=0&amp;ir_DAP_M1=711532001925528&amp;ir_DAP_M2=13129181&amp;ir_DAP_M3=&amp;ir_DAP_M4=&amp;ir_DAP_M5=&amp;ir_DAP_M6=&amp;ir_DAP_M7=&amp;ir_DAP_M8=&amp;ir_DAP_M9=&amp;ir_DAP_M10=&amp;ir_DAP_I6=0&amp;dap3_template_id=13129181&amp;rvr_id=731615499166&amp;ir_DAP_I5=1" flashvars="clickTAG=http://rover.ebay.com%2Frover%2F1%2F711-53200-19255-28%2F1%3Fmpt%3D196864346274%26toolid%3D711532001925528%26customid%3D%26campid%3D5337305539%26imp_rvr_id%3D731615499166%26mpcr%3D13129181%26mpcrset%3Droot%26ir_DAP_M2%3D13129181%26ff7%3D%26ff1%3D%26ff10%3D13129181%26mpcr%3D13129181&amp;clickTag=http://rover.ebay.com%2Frover%2F1%2F711-53200-19255-28%2F1%3Fmpt%3D196864346274%26toolid%3D711532001925528%26customid%3D%26campid%3D5337305539%26imp_rvr_id%3D731615499166%26mpcr%3D13129181%26mpcrset%3Droot%26ir_DAP_M2%3D13129181%26ff7%3D%26ff1%3D%26ff10%3D13129181%26mpcr%3D13129181&amp;clickTag1=http://rover.ebay.com%2Frover%2F1%2F711-53200-19255-28%2F1%3Fmpt%3D196864346274%26toolid%3D711532001925528%26customid%3D%26campid%3D5337305539%26imp_rvr_id%3D731615499166%26mpcr%3D13129181%26mpcrset%3Droot%26ir_DAP_M2%3D13129181%26ff7%3D%26ff1%3D%26ff10%3D13129181%26mpcr%3D13129181&amp;url=http%253A%252F%252Fwww.raspyfi.com%252Fwi-fi-on-raspberry-pi-a-simple-guide%252F" swliveconnect="false" width="160" height="600" type="application/x-shockwave-flash" pluginspage=""></object></div></div>        
+<noscript>
+&lt;a href='http://rover.ebay.com/rover/1/711-53200-19255-28/1?campid=5337305539&amp;toolid=711532001925528&amp;customid=&amp;mpvc='&gt;
+&lt;img border='0px' src='http://rover.ebay.com/ar/1/711-53200-19255-28/1?campid=5337305539&amp;toolid=711532001925528&amp;customid=&amp;mpt=[CACHEBUSTER]&amp;adtype=1&amp;size=160x600&amp;mpvc=' alt='Click Here'&gt;
+&lt;/a&gt;
+</noscript></div>
+</div><div id="donate_extra_1" class="widget-wrapper widget_donateextraform"><div class="widget-title">Make a donation</div><form id="donateextraform" style="float: left;" action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" id="cmd" name="cmd" value="_donations">
+<p class="donate_amount"><label for="amount">Donation Amount:</label><br><input type="text" name="amount" id="amount" value="1"> <small>(Currency: EUR)</small></p>
+<div style="height: 0px;">
+<input type="hidden" name="notify_url" value="http://www.raspyfi.com/wp-content/plugins/donate-extra/paypal.php">
+<input type="hidden" name="item_name" value="Donation to RaspyFi">
+<input type="hidden" name="business" value="er_mik@hotmail.com">
+<input type="hidden" name="lc" value="US">
+<input type="hidden" name="no_note" value="1">
+<input type="hidden" name="no_shipping" value="1">
+<input type="hidden" name="rm" value="2">
+<input type="hidden" name="return" value="http://www.raspyfi.com/donate-2/?thankyou=true">
+<input type="hidden" name="currency_code" value="EUR">
+<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHosted"></div>
+<p class="submit"><input type="image" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/btn_donate_LG.gif" style="background-color: transparent;" border="0" name="submit" alt="">
+<img alt="" border="0" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/pixel.gif" width="1" height="1"></p>
+</form></div><div id="search-2" class="widget-wrapper widget_search"> <form method="get" id="searchform" action="http://www.raspyfi.com/">
+<input type="text" class="field" name="s" id="s" placeholder="ricerca …">
+<input type="submit" class="submit" name="submit" id="searchsubmit" value="Vai">
+</form></div> <div id="recent-posts-2" class="widget-wrapper widget_recent_entries"> <div class="widget-title">Recent</div> <ul>
+<li>
+<a href="http://www.raspyfi.com/volumio-your-new-favourite-audiophile-music-player-is-out/" title="Volumio, your new favourite Audiophile Music Player is out!">Volumio, your new favourite Audiophile Music Player is out!</a>
+</li>
+<li>
+<a href="http://www.raspyfi.com/raspyfi-1-0-audiophile-linux-is-out/" title="RaspyFi 1.0 audiophile linux is out!">RaspyFi 1.0 audiophile linux is out!</a>
+</li>
+<li>
+<a href="http://www.raspyfi.com/the-best-raspberry-pi-power-supply/" title="The best Raspberry Pi power supply">The best Raspberry Pi power supply</a>
+</li>
+<li>
+<a href="http://www.raspyfi.com/the-right-usb-dac-for-your-raspberry-pi/" title="The right USB DAC for your Raspberry Pi">The right USB DAC for your Raspberry Pi</a>
+</li>
+<li>
+<a href="http://www.raspyfi.com/building-my-reference-dac/" title="Building my reference dac (xmos2 to i2s dac sabre 9023)">Building my reference dac (xmos2 to i2s dac sabre 9023)</a>
+</li>
+</ul>
+</div><div id="categories-2" class="widget-wrapper widget_categories"><div class="widget-title">Categorie</div> <ul>
+<li class="cat-item cat-item-1"><a href="http://www.raspyfi.com/category/downloads/distros/" title="Visualizza tutti gli articoli archiviati in Distributions">Distributions</a>
+</li>
+<li class="cat-item cat-item-25"><a href="http://www.raspyfi.com/category/diy/" title="Visualizza tutti gli articoli archiviati in Diy">Diy</a>
+</li>
+<li class="cat-item cat-item-8"><a href="http://www.raspyfi.com/category/docs/" title="Visualizza tutti gli articoli archiviati in Documentation">Documentation</a>
+</li>
+<li class="cat-item cat-item-7"><a href="http://www.raspyfi.com/category/downloads/" title="Visualizza tutti gli articoli archiviati in Downloads">Downloads</a>
+</li>
+<li class="cat-item cat-item-35"><a href="http://www.raspyfi.com/category/reviews/" title="Visualizza tutti gli articoli archiviati in reviews">reviews</a>
+</li>
+<li class="cat-item cat-item-2"><a href="http://www.raspyfi.com/category/tutorials/" title="Visualizza tutti gli articoli archiviati in Tutorials">Tutorials</a>
+</li>
+</ul>
+</div>
+</div>  </div> 
+</div> 
+<div id="footer" class="clearfix">
+<div id="footer-wrapper">
+<div class="grid col-940">
+<div class="grid col-540">
+</div> 
+<div class="grid col-380 fit">
+<ul class="social-icons"></ul>  </div> 
+</div> 
+<div class="grid col-300 copyright">
+© 2014<a href="http://www.raspyfi.com/" title="RaspyFi">
+RaspyFi </a>
+</div> 
+<div class="grid col-300 scroll-top"><a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#scroll-top" title="vai in alto">↑</a></div>
+<div class="grid col-300 fit powered">
+<a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/www.raspyfi.com/privacy-policy">Privacy Policy</a>
+</div> 
+</div> 
+</div> 
+<style>#age_button_area{padding-top:10px;position:relative;width:100%;bottom:5px;padding-top:5px;}#ageEnterButton{border-color:;background:;color:;}#ageLeaveButton{border-color:;background:;color:;}#popup_content{overflow-y:hidden;overflow-x:auto;height:100%;width:100%;}#itro_popup{position:fixed;background-image:background-repeat: no-repeat;background-position:center center;margin:0 auto;left:30px;right:30px;z-index:2147483647!important;padding:2px!important;border:solid;border-color:#4BBE87;border-radius:8px;border-width:6px;width:600px;height:;background-color:#FFFFFF;padding-bottom:15px;}#close_cross{cursor:pointer;width:20px;position:absolute;top:-22px;right:-22px;}#popup_countdown{color:;width:100%;padding-top:1px;padding-bottom:1px;background-color:#4BBE87;height:;overflow:hidden;position:absolute;bottom:0px;left:0px;border-bottom-left:8px;border-bottom-right:8px;}#itro_opaco{position:fixed;background-color:#8A8A8A;font-size:10px;font-family:Verdana;top:100px;width:100%;height:100%;z-index:2147483646!important;left:0px;right:0px;top:0px;bottom:0px;opacity:0.4;filter:alpha(opacity= 40);}</style>
+<div id="itro_popup" style="top: 342.5px; display: none;">
+<div id="popup_countdown" align="center">Questo popup verrà; chiuso tra:<b id="timer">1</b></div><img id="close_cross" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/close-icon.png" title="CHIUDI" onclick="jQuery(&#39;#itro_popup&#39;).fadeOut(function(){itro_opaco.style.visibility=&#39;hidden&#39;;})"> <div id="popup_content"><p style="text-align: center;"><span style="font-size: 16px;"><span style="color: #000000;">Dear beloved RaspyFi Users</span></span></p><p style="text-align: center;">&nbsp;<span style="color: #000000;"><span style="font-size: 20px;">RaspyFi has evolved into&nbsp;</span></span></p><p><a title="Volumio" href="http://www.volumio.org/"><img class="aligncenter size-full wp-image-818" alt="logopic" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/logopic.png" width="400" height="53"></a><br>&nbsp;</p><p style="text-align: center;"><strong><span style="color: #000000; font-size: 20;">Which is compatible with Raspberry Pi, Udoo, Cubox and Beaglebone Black. And brings lots of new, exciting features.&nbsp;</span></strong></p><p style="text-align: left;"><strong>RaspyFi website will remain available for archive references, every new activity will be on</strong></p><p style="text-align: center;"><span style="font-size: 24px;"><a title="Volumio" href="http://volumio.org/">Volumio.org</a></span></p><p style="text-align: center;"><a title="Volumio" href="http://volumio.org/"><span style="font-size: 18px;">See you there!&nbsp;</span></a></p><p style="text-align: center;">&nbsp;</p> </div>
+</div>
+<div id="itro_opaco" style="visibility: hidden;"></div>
+<script type="text/rocketscript" data-rocketoptimized="true">
+	
+					itro_set_cookie("popup_cookie","one_time_popup",6); 				document.onkeydown = function(event) 
+				{
+					event = event || window.event;
+					var key = event.keyCode;
+					if(key==27)
+					{
+						jQuery("#itro_popup").fadeOut(function() {itro_opaco.style.visibility='Hidden';});
+					} 
+				}; 				itro_enter_anim();
+							var popTime=30;
+				interval_id = setInterval(function(){popTimer()},1000); /* the countdown  */
+							var browserWidth = 0, browserHeight = 0;
+			setInterval(function(){marginRefresh()},100); /* refresh every 0.1 second the popup top margin (needed for browser window resizeing) */
+				</script>
+<!--[if IE]><style type="text/css">.flare-flyout{visibility:visible;}</style><![endif]--><!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="http://www.raspyfi.com/wp-content/plugins/flare/css/flare.ie.css" /><![endif]--><div class="flare-vertical flare-backgroundcolor-dark flare-left enablecounters closablevertical countloaded countloadfinished" data-humbleflarecount="5" style="left: 50%; margin-left: -539px; opacity: 0; top: 40px;">
+<span class="loading"><span></span></span>
+<span class="flare-total first"><strong>92</strong> Flares</span>
+<span data-type="twitter" class="flare-button button-type-twitter flare-iconstyle-round-bevel first" style="background-color:#00aced;z-index:6">
+<span class="flare-button-wrap">
+<span class="flare-button-icon">Twitter</span>
+</span>
+</span>
+<span class="flare-button-count">13</span>
+<span class="flare-flyout flare-flyout-twitter first">
+<span class="flare-flyout-inner">
+<span class="flare-arrow"></span>
+</span>
+<span class="flare-iframe-wrapper">
+<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/tweet_button.d58098f8a7f0ff5a206e7f15442a6b30.it.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-vertical" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 55px; height: 62px;"></iframe>
+<script type="text/rocketscript" data-rocketoptimized="true">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script> </span>
+</span>
+<span data-type="facebook" class="flare-button button-type-facebook flare-iconstyle-round-bevel" style="background-color:#0b59aa;z-index:5">
+<span class="flare-button-wrap">
+<span class="flare-button-icon">Facebook</span>
+</span>
+</span>
+<span class="flare-button-count">52</span>
+<span class="flare-flyout flare-flyout-facebook" style="top: 80px;">
+<span class="flare-flyout-inner">
+<span class="flare-arrow"></span>
+</span>
+<span class="flare-iframe-wrapper">
+<iframe src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/like.html" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:65px;" allowtransparency="true"></iframe> </span>
+</span>
+<span data-type="googleplus" class="flare-button button-type-googleplus flare-iconstyle-round-bevel" style="background-color:#d84d2f;z-index:4">
+<span class="flare-button-wrap">
+<span class="flare-button-icon">Google+</span>
+</span>
+</span>
+<span class="flare-button-count">11</span>
+<span class="flare-flyout flare-flyout-googleplus">
+<span class="flare-flyout-inner">
+<span class="flare-arrow"></span>
+</span>
+<span class="flare-iframe-wrapper">
+<div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 50px; height: 60px; background: transparent;"><iframe frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 50px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 60px;" tabindex="0" vspace="0" width="100%" id="I1_1416095963030" name="I1_1416095963030" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div>
+<script type="text/rocketscript" data-rocketoptimized="true">
+  (function() {
+    var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
+    po.src = "https://apis.google.com/js/plusone.js";
+    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script> </span>
+</span>
+<span data-type="stumbleupon" class="flare-button button-type-stumbleupon flare-iconstyle-round-bevel" style="background-color:#2bb87a;z-index:3">
+<span class="flare-button-wrap">
+<span class="flare-button-icon">StumbleUpon</span>
+</span>
+</span>
+<span class="flare-button-count">15</span>
+<span class="flare-flyout flare-flyout-stumbleupon" style="top: 220px;">
+<span class="flare-flyout-inner">
+<span class="flare-arrow"></span>
+</span>
+<span class="flare-iframe-wrapper">
+ 
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/saved_resource.html" width="50" height="60" id="iframe-stmblpn-widget-1" style="overflow: hidden; margin: 0px; padding: 0px; border: 0px;"></iframe>
+ 
+<script type="text/rocketscript" data-rocketoptimized="true">
+  (function() {
+    var li = document.createElement("script"); li.type = "text/javascript"; li.async = true;
+    li.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//platform.stumbleupon.com/1/widgets.js";
+    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(li, s);
+  })();
+</script> </span>
+</span>
+<span data-type="pinterest" class="flare-button button-type-pinterest flare-iconstyle-round-bevel" style="background-color:#ce1c1e;z-index:2">
+<span class="flare-button-wrap">
+<span class="flare-button-icon">Pin It Share</span>
+</span>
+</span>
+<span class="flare-button-count">0</span>
+<span class="flare-flyout flare-flyout-pinterest" style="top: 290px;">
+<span class="flare-flyout-inner">
+<span class="flare-arrow"></span>
+</span>
+<span class="flare-iframe-wrapper">
+<a class="PIN_1416095959652_pin_it_button_20 PIN_1416095959652_pin_it_button_en_20_gray PIN_1416095959652_pin_it_button_inline_20 PIN_1416095959652_pin_it_above_20" data-pin-href="//it.pinterest.com/pin/create/button/?guid=C6a9hM4DMLTQ-1&amp;url=http%3A%2F%2Fwww.raspyfi.com%2Fwi-fi-on-raspberry-pi-a-simple-guide%2F&amp;media=http%3A%2F%2Fwww.raspyfi.com%2Fwp-content%2Fuploads%2F2013%2F03%2Fraspberrywi-fi1.png&amp;description=Wi-fi%20on%20Raspberry%20Pi%2C%20a%20simple%20guide%20-%20RaspyFi" data-pin-log="button_pinit" data-pin-config="above"><span class="PIN_1416095959652_pin_it_button_count" id="PIN_1416095959652_pin_count_0"><i></i>2</span></a> </span>
+</span>
+<span data-type="reddit" class="flare-button button-type-reddit flare-iconstyle-round-bevel last" style="background-color:#8fc5f2;z-index:1">
+<span class="flare-button-wrap">
+<span class="flare-button-icon">Reddit</span>
+</span>
+</span>
+<span class="flare-button-count">0</span>
+<span class="flare-flyout flare-flyout-reddit" style="top: 360px;">
+<span class="flare-flyout-inner">
+<span class="flare-arrow"></span>
+</span>
+<span class="flare-iframe-wrapper">
+<script type="text/rocketscript" data-rocketsrc="http://www.reddit.com/static/button/button3.js" data-rocketoptimized="true"></script><iframe src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/button3.html" height="52" width="69" scrolling="no" frameborder="0"></iframe> </span>
+</span>
+<span class="flare-total last"><strong>92</strong> Flares</span>
+<span class="close">
+<a href="http://www.raspyfi.com/wi-fi-on-raspberry-pi-a-simple-guide/#close">×</a>
+</span>
+</div><script type="text/rocketscript" data-rocketoptimized="true">
+  var __flare_count_url = "http://www.raspyfi.com/wp-admin/admin-ajax.php?action=flare_get_counts&url=http%3A%2F%2Fwww.raspyfi.com%2Fwi-fi-on-raspberry-pi-a-simple-guide%2F&post_id=321&_wpnonce=39c0c32550";
+</script>
+<div style="display:none">
+</div>
+<script type="text/rocketscript" data-rocketsrc="http://s0.wp.com/wp-content/js/devicepx-jetpack.js?ver=201446" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://s.gravatar.com/js/gprofiles.js?ver=2014Novaa" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketoptimized="true">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/plugins/jetpack/modules/wpgroho.js?ver=3.5.1" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/themes/responsive/js/responsive-scripts.js?ver=1.2.2" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/themes/responsive/js/responsive-plugins.js?ver=1.2.2" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://www.raspyfi.com/wp-content/plugins/flare/js/flare.js?ver=1.2.2" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketsrc="http://assets.pinterest.com/js/pinit.js?ver=3.5.1" data-rocketoptimized="true"></script>
+<script data-rocketsrc="http://stats.wordpress.com/e-201446.js" type="text/rocketscript" data-rocketoptimized="true"></script>
+<script type="text/rocketscript" data-rocketoptimized="true">
+	st_go({v:'ext',j:'1:2.2.5',blog:'44490269',post:'321',tz:'1'});
+	var load_cmc = function(){linktracker_init(44490269,321,2);};
+	if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+	else load_cmc();
+	</script><img id="wpstats" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/g.gif" alt="">
+</div><script id="twitter-csp-test"></script><iframe name="oauth2relay668900826" id="oauth2relay668900826" src="./Wi-fi on Raspberry Pi, a simple guide - RaspyFi_files/postmessageRelay.html" tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;"></iframe></body></html>

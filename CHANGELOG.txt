@@ -1,0 +1,18 @@
+#Burn OS onto SD card
+sudo dd bs=1m if=2014-raspi.img of=/dev/rdisk1
+
+#Set up wireless
+sudo apt-get install wicd-curses
+sudo wicd-curses
+
+#Set Audio output to be the headphone jack
+sudo amixer cset numid=3 1
+0=auto
+1=headphones
+2=hdmi
+
+#Recording and play audio
+#hw:1,0 : Mic 1
+#hw:2,0 : Mic 2
+arecord -f dat -d 20 -D hw:1,0 test.wav
+aplay -f dat music/test.wav
