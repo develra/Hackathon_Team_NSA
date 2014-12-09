@@ -1,13 +1,18 @@
 import speech_recognition as sr
 import sys
+import os
 
-#The First arugment is a .wav file to interpret
+
+#Th .wav file to interpret
 soundFile=sys.argv[1]
-#The second argument is a file to write the results to, usually .txt
+#The file to write the results to, usually .txt
 outfile = sys.argv[2]
+#Folder to watch for additional sound files
+soundfolder = ".\soundbites"
 
-outf = open(str(sys.argv[2]), 'w')
 
+
+outf = open(str(outfile), 'w')
 r = sr.Recognizer()
 with sr.WavFile(soundFile) as source:              
 	audio = r.record(source)
@@ -24,4 +29,4 @@ try:
 		outf.write(word+'\n')
 
 except LookupError:                               
-	print("Could not understand audio - attempting SPHINX")
+	print("Could not understand audio - ignoring input")
