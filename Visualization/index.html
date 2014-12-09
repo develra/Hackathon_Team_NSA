@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+<title>Team NSA</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style>
+#graphic-count rect {
+  fill: steelblue;
+}
+</style>
+</head>
+<body>
+  <!-- Primary Visualization -->
+  <div id="container" style="width:100%;margin:0 auto;">
+    <button id="button">update</button>
+    <h1 style="font-size:80px;font-family:Impact;text-align:center;margin:0;">What do we hear in ATLAS?</h1>
+    <svg id="graphic"></svg>
+  </div>
+  <!-- Word Count Visualization -->
+  <div style="height:200px; background-color:#eee;width:49.8%;margin-right:0.4%;float:left;">
+    <h3 id="count-title" style="font-size:26px;color:#aaa;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;">Top Words</h3>
+    <svg id="graphic-count"></svg>
+  </div>
+  <!-- Recent Words Visualization -->
+  <div style="height:200px; background-color:#eee;width:49.8%;float:left;">
+    <h3 id="recent-title" style="font-size:26px;color:#aaa;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;"></h3>
+    <svg id="graphic-recent"></svg>
+  </div>
+
+</body>
+<script src="d3.js"></script>
+<script src="d3.layout.cloud.js"></script>
+
+<script>
+  // Yo, don't leave this shit on, or you'll regret it.
+  console.error = undefined;
+  //////////////////////////////////////////////////////////////////////////////////
+  // Just some housekeeping, carry on.
+  var wordData2 = [];
+  wordData2 = [
+  {
+    text: "cunt",
+    count: "180"
+  },
+  {
+    text: "apple",
+    count: "160"
+  },
+  {
+    text: "centipede",
+    count: "120"
+  },
+  {
+    text: "smoke",
+    count: "80"
+  },
+  {
+    text: "beer",
+    count: "102"
+  },
+  {
+    text: "atlas",
+    count: "92"
+  }];
+
+  var fill = d3.scale.category20();
+  var width = window.innerWidth;
+  var height = window.innerHeight-300-30;
+  var wordObjectArray = [];
+  var recentWordObjectArray = [];
+  var tempData = {};
+  var tempData2 = {};
+  var intervalCount = 0;
+  var minTime;
+  //////////////////////////////////////////////////////////////////////////////////
+  // Go get dat data.
+  function getData() {
+    wordObjectArray = [];
+    wordData = [];
+    intervalCount = intervalCount + 1;
+    
+
+    $.ajax({
+      //url: "testWords.json",
+      //url: "http://unsullied.x10host.com/wordcloud/words.json#",
+      //url: "https://teamnsa.herokuapp.com/words/top?max=10",
+      //url: "https://www.reddit.com/r/pics.json",
+      url: "ba-simple-proxy.php?url=https%3A%2F%2Fteamnsa.herokuapp.com%2Fwords%2Ftop%3Fmax%3D100", // teamnsa.herokuapp
+      //url: "ba-simple-proxy.php?url=http%3A%2F%2F104.236.60.203%3A5000%2Fwords%2Ftop%3Fmax%3D100", // Production URL for API
+      type: "GET",
+      dataType: "json",
+      crossDomain: true,
+      success: function(result) {
+        //////////////////////////////////////////////////////////////////////////////////
+        // Handle the data, parse result
+        console.log('Interval '+intervalCount+': Successful request to API. Comparing result to existing data.')
+        var wordData = result;
+
+        if ( isEquivalent(wordData, tempData) === false ) {
+
+          if(d3.selectAll("#primary-text-item")) {
+            d3.selectAll("#primary-text-item")
+              .transition()
+              .duration(1000)
+              .style("opacity",0)
+              .remove();
+
+            console.log('Interval '+intervalCount+': Removed Current Visualization')
+          }
+
+          console.log('Interval '+intervalCount+': New data received, updating visualization.');
+
+          // Keep data for comparison on next interval
+          tempData2 = tempData;
+          tempData = wordData;
+
+          var max = 0;
+          
+          // Get max count from dataset
+          for ( var k = 0; k < wordData.contents.length; k++ ) {
+            if ( wordData.contents[k].count > max ) {
+              max = wordData.contents[k].count;
+            }
+          }
+          console.log('Max Count: '+max );
+
+          var fontScale = d3.scale.linear()
+            .domain([0,max*1.5])
+            .range([0, 300]);
+
+          var barChartScale = d3.scale.linear()
+            .domain([0,max*1.5])
+            .range([0,25]);
+
+          // Parse GET result to conform to JSON format d3.layout.cloud.js is looking for
+          for( var i = 0; i < wordData.contents.length; i++ ) {
+            
+            if( wordData.contents[i].word == 'Shit' ) {
+              //wordData.contents[i].word = 'Sh*t';
+            }
+
+            // Create new objects with word and count.
+            var tempObject = {
+              text: wordData.contents[i].word,
+              chartCount: wordData.contents[i].count,
+              count: String(fontScale(wordData.contents[i].count))
+            };
+            wordObjectArray.push(tempObject);
+
+          }
+          
+          //////////////////////////////////////////////////////////////////////////////////
+          // Create Main D3 Cloud here
+          d3.layout.cloud()
+            .size([width, height])
+            .words(wordObjectArray)
+            .padding(5)
+            .rotate(function() { return ~~(Math.random() * 2) * 90; })
+            .font("Impact")
+            .fontSize(function(d) { return d.count; })
+            .on("end", draw)
+            .start();
+
+          //////////////////////////////////////////////////////////////////////////////////
+          // Create Bar Chart
+          var offset;
+          var barWidth = 20;
+
+          var barWidth = 20;
+
+          var bar = d3.select('#graphic-count')
+            .attr("style", "margin-left:10px;")
+            .attr("width", width*0.48)
+            .attr("height", 200)
+          .selectAll("g")
+            .attr("id", "count-bar")
+            .data(wordObjectArray.slice(0,40))
+          .enter().append("g")
+              .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
+
+          bar.append("rect")
+              .attr("y", function(d) { return 60 - barChartScale(d.count); })
+              .attr("height", function(d) { return barChartScale(d.count); })
+              .attr("width", barWidth - 1);
+          
+          bar.append("text")
+              .attr("x", barWidth)
+              .attr("y", function(d) { 
+                return 100; // barChartScale(d.count) + 30; 
+              })
+              .attr("transform", "translate("+6*barWidth+",45)rotate(90)")
+              .attr("dy", ".75em")
+              .text(function(d) { 
+                return d.text; // + ", "+d.chartCount; 
+              });
+
+
+        } else {
+          console.log('Interval '+intervalCount+': New data was not received.');
+        }
+
+
+        
+      },
+      error: function(d) {
+        console.log('Interval '+intervalCount+': Unsuccessful Request to API. Error:\n');
+        console.log(d);
+      }
+
+    });
+  }
+
+  function getRecentData() {
+    recentWordObjectArray = [];
+    recentWordData = [];
+    intervalCount = intervalCount + 1;
+    
+
+    $.ajax({
+      url: "ba-simple-proxy.php?url=https%3A%2F%2Fteamnsa.herokuapp.com%2Fwords%2Frecent%3Fmax%3D11%26period%3D200", // teamnsa.herokuapp
+      //url: "ba-simple-proxy.php?url=http%3A%2F%2F104.236.60.203%3A5000%2Fwords%2Ftop%3Fmax%3D100", // Production URL for API
+      type: "GET",
+      dataType: "json",
+      crossDomain: true,
+      success: function(result) {
+        //////////////////////////////////////////////////////////////////////////////////
+        // Handle the data, parse result
+        
+        console.log('Interval '+intervalCount+': Successful request to API. Comparing result to existing data. (Second Visualization)')
+        var recentWordData = result;
+
+        if ( recentWordData.contents.length > 0 ) {
+          if( d3.selectAll("#secondary-text-item") ) {
+            d3.selectAll("#secondary-text-item")
+              .transition()
+              .duration(1000)
+              .style("opacity",0)
+              .remove();
+
+            //console.log('Interval '+intervalCount+': Removed Current Visualization (Secondary Visualization)')
+          }
+          console.log('Interval '+intervalCount+': New data received, updating visualization. (Secondary Visualization)');
+
+          // Parse GET result to conform to JSON format d3.layout.cloud.js is looking for
+          for( var i = 0; i < recentWordData.contents.length; i++ ) {
+ 
+            // Create new objects with word and count.
+            var tempObject = {
+              text: recentWordData.contents[i].word,
+              //count: String(fontScale(recentWordData.contents[i].count))
+            };
+            recentWordObjectArray.push(tempObject);
+
+          }
+          var wordWidth = width*0.495/recentWordData.contents.length;
+
+          //////////////////////////////////////////////////////////////////////////////////
+          // Add title
+          document.getElementById("recent-title").innerHTML = "Incoming at the mic";
+
+          //////////////////////////////////////////////////////////////////////////////////
+          // Add recent words to footer
+          d3.select("#graphic-recent")
+            .attr("style", "text-align:center;")
+            .attr("width", width*0.495)
+            .attr("height", 150)
+          .append("g")
+            .attr("id", "secondary-text-item")
+            .attr("transform", function(d,i) {
+              if ( i*wordWidth > 30 ) {
+                return "translate("+i*wordWidth+",0)";
+              } else {
+                return "translate(80,0)";
+              }
+            })
+          .selectAll("text")
+            .data(recentWordObjectArray)
+          .enter().append("text")
+            .transition()
+            .duration(1000)
+            .style("font-size", function(d) { return "26px"; })
+            .style("font-family", "Impact")
+            .style("fill", function(d, i) { return fill(i); })
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d, i) {
+              return "translate(" + i*wordWidth + ",40)";
+            })
+            .text(function(d) { return d.text; });
+
+        } else if ( recentWordData.contents.length == 0 ) {
+          console.log('Interval '+intervalCount+': New data was not received. (Secondary Visualization)');
+          if( d3.selectAll("#secondary-text-item") ) {
+            d3.selectAll("#secondary-text-item")
+              .transition()
+              .duration(1000)
+              .style("opacity",0)
+              .remove();
+
+            //console.log('Interval '+intervalCount+': Removed Current Visualization (Secondary Visualization)')
+          }
+
+          document.getElementById("recent-title").innerHTML = "No one's at the mic bro.";
+        }
+
+        
+      },
+      error: function(d) {
+        console.log('Interval '+intervalCount+': Unsuccessful Request to API. Error:\n');
+        console.log(d);
+      }
+
+    });
+  }
+  
+  d3.select('#button').on("click", function() {
+    tempData = [];
+    getRecentData();
+    getData();
+    /*
+    d3.layout.cloud()
+      .size([width, height])
+      .words(wordData2)
+      .padding(5)
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .font("Impact")
+      .fontSize(function(d) { return d.count; })
+      .on("end", draw)
+      .start();*/
+  });
+  //////////////////////////////////////////////////////////////////////////////////
+  // Draw D3 Cloud
+  function draw(words) {
+    var translateG = window.innerWidth*0.25;
+    d3.select("#graphic")
+        .attr("style", "text-align:center;")
+        .attr("width", width)
+        .attr("height", height)
+      .append("g")
+        .attr("id", "primary-text-item")
+        .attr("transform", "translate("+width/2+","+height/2+")")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .transition()
+        .duration(1000)
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+
+  getData();
+  getRecentData();
+
+  setInterval(function () {
+    //intervalCount += 1;
+    getData();
+  }, 5000);
+
+  setInterval(function () {
+    tempData = [];
+    getData();
+  }, 15000);
+
+  setInterval(function () {
+    //intervalCount += 1;
+    getRecentData();
+    //tempData = [];
+  }, 5000);
+
+  //////////////////////////////////////////////////////////////////////////////////
+  // Function to deep compare objects
+  // Note: I tried making this general, but it just wouldn't fucking work. Fuck JavaScript.
+
+  function isEquivalent(a, b) {
+    // If b is false, then tempData hasn't been set yet. Live with it.
+    if ( !tempData.contents ) {
+      return false;
+    } else {
+      if ( a.contents.length != tempData.contents.length ) {
+        return false;
+      } else {
+        // Well, there's the same amount of words. Lets check if the count or modified times changed.
+        for ( var i = 0; i < a.contents.length; i++ ) {
+          // Note, a and b have the same lengths
+          // I've hard coded the keys, but at this point, I'm 4 drinks in and don't give a shit.
+          if ( String(a.contents[i].word) != String(tempData.contents[i].word) ) {
+            //return 'False, mismatch: words';
+            return false;
+          } else if ( String(a.contents[i].count) != String(tempData.contents[i].count) || String(a.contents[i].count) != String(tempData2.contents[i].count) ) {
+            //return 'False, mismatch: count';
+            return false;
+          } else if ( String(a.contents[i].modifiedOn) != String(tempData.contents[i].modifiedOn) || String(a.contents[i].modifiedOn) != String(tempData2.contents[i].modifiedOn) ) {
+            //return 'False, mismatch: modifiedOn';
+            return false;
+          } else if ( String(a.contents[i].variance) != String(tempData.contents[i].variance)  || String(a.contents[i].variance) != String(tempData2.contents[i].variance) ) {
+            //return 'False, mismatch: variance. '+i+': ('+a.contents[i].variance+', '+b.contents[i].variance+')';
+            // Something about the variance being an array throws this off. We're not using it, so ignore it.
+            return true;
+          } else {
+            return true;
+          }
+        } // End For loop
+      } // End if a.contents.length != b.contents.length
+    } // End else !b.contents
+  } // End isEquivalent()
+
+</script>
+</html>
