@@ -29,17 +29,24 @@ WEB API DOCUMENTATION
 ---------------------
 
 PRODUCTION SERVER ADDRESS: http://104.236.60.203:5000/
+
 STAGING SERVER ADDRESS   : https://teamnsa.herokuapp.com/
 
+
 // TO REPORT WORDS
-POST /words
-[ { word: "<word>", variance: "<variance>"}, ... ]
+
+	POST /words
+	[ { word: "<word>", variance: "<variance>"}, ... ]
 
 	for example: [ {word: "stand", variance: "ing"}, {word: "hi", variance: ""} ]
 
 // TO GET RECENT WORDS
-GET /words/recent?max=<max>&period=<t>
+
+	GET /words/recent?max=<max>&period=<t>
+	
 Will return maximum of "max" words within the last "t" seconds.
 
+
 // TO GET MOST COMMONLY USED WORDS
-GET /words/top?max=<max>
+
+	GET /words/top?max=<max>
