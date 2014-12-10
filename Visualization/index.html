@@ -18,12 +18,12 @@
     <svg id="graphic"></svg>
   </div>
   <!-- Word Count Visualization -->
-  <div style="height:200px; background-color:#eee;width:49.8%;margin-right:0.4%;float:left;">
+  <div style="height:210px; background-color:#eee;width:49.8%;margin-right:0.4%;float:left;">
     <h3 id="count-title" style="font-size:26px;color:#aaa;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;">Top Words</h3>
     <svg id="graphic-count"></svg>
   </div>
   <!-- Recent Words Visualization -->
-  <div style="height:200px; background-color:#eee;width:49.8%;float:left;">
+  <div style="height:210px; background-color:#eee;width:49.8%;float:left;">
     <h3 id="recent-title" style="font-size:26px;color:#aaa;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;"></h3>
     <svg id="graphic-recent"></svg>
   </div>
@@ -66,18 +66,19 @@
 
   var fill = d3.scale.category20();
   var width = window.innerWidth;
-  var height = window.innerHeight-300-30;
+  var height = window.innerHeight-300-40;
   var wordObjectArray = [];
   var recentWordObjectArray = [];
-  var tempData = {};
-  var tempData2 = {};
+  var topWordObjectArray = [];
+  var tempData = [];
+  var tempData2 = [];
   var intervalCount = 0;
   var minTime;
   //////////////////////////////////////////////////////////////////////////////////
   // Go get dat data.
   function getData() {
     wordObjectArray = [];
-    wordData = [];
+    var wordData = [];
     intervalCount = intervalCount + 1;
     
 
@@ -86,8 +87,9 @@
       //url: "http://unsullied.x10host.com/wordcloud/words.json#",
       //url: "https://teamnsa.herokuapp.com/words/top?max=10",
       //url: "https://www.reddit.com/r/pics.json",
-      url: "ba-simple-proxy.php?url=https%3A%2F%2Fteamnsa.herokuapp.com%2Fwords%2Ftop%3Fmax%3D100", // teamnsa.herokuapp
+      //url: "ba-simple-proxy.php?url=https%3A%2F%2Fteamnsa.herokuapp.com%2Fwords%2Ftop%3Fmax%3D100", // teamnsa.herokuapp
       //url: "ba-simple-proxy.php?url=http%3A%2F%2F104.236.60.203%3A5000%2Fwords%2Ftop%3Fmax%3D100", // Production URL for API
+      url: "http://104.236.60.203:5000/words/top?max=100", // Production URL for API
       type: "GET",
       dataType: "json",
       crossDomain: true,
@@ -95,8 +97,8 @@
         //////////////////////////////////////////////////////////////////////////////////
         // Handle the data, parse result
         console.log('Interval '+intervalCount+': Successful request to API. Comparing result to existing data.')
-        var wordData = result;
-
+        wordData = result;
+        console.log( wordData );
         if ( isEquivalent(wordData, tempData) === false ) {
 
           if(d3.selectAll("#primary-text-item")) {
@@ -106,7 +108,7 @@
               .style("opacity",0)
               .remove();
 
-            console.log('Interval '+intervalCount+': Removed Current Visualization')
+            console.log('Interval '+intervalCount+': Removed Primary WordCloud Visualization');
           }
 
           console.log('Interval '+intervalCount+': New data received, updating visualization.');
@@ -118,9 +120,9 @@
           var max = 0;
           
           // Get max count from dataset
-          for ( var k = 0; k < wordData.contents.length; k++ ) {
-            if ( wordData.contents[k].count > max ) {
-              max = wordData.contents[k].count;
+          for ( var k = 0; k < wordData.length; k++ ) {
+            if ( wordData[k].count > max ) {
+              max = wordData[k].count;
             }
           }
           console.log('Max Count: '+max );
@@ -134,22 +136,22 @@
             .range([0,25]);
 
           // Parse GET result to conform to JSON format d3.layout.cloud.js is looking for
-          for( var i = 0; i < wordData.contents.length; i++ ) {
+          for( var i = 0; i < wordData.length; i++ ) {
             
-            if( wordData.contents[i].word == 'Shit' ) {
-              //wordData.contents[i].word = 'Sh*t';
+            if( wordData[i].word == 'Shit' ) {
+              //wordData[i].word = 'Sh*t';
             }
 
             // Create new objects with word and count.
             var tempObject = {
-              text: wordData.contents[i].word,
-              chartCount: wordData.contents[i].count,
-              count: String(fontScale(wordData.contents[i].count))
+              text: wordData[i].word,
+              chartCount: wordData[i].count,
+              count: String(fontScale(wordData[i].count))
             };
             wordObjectArray.push(tempObject);
 
           }
-          
+
           //////////////////////////////////////////////////////////////////////////////////
           // Create Main D3 Cloud here
           d3.layout.cloud()
@@ -161,39 +163,6 @@
             .fontSize(function(d) { return d.count; })
             .on("end", draw)
             .start();
-
-          //////////////////////////////////////////////////////////////////////////////////
-          // Create Bar Chart
-          var offset;
-          var barWidth = 20;
-
-          var barWidth = 20;
-
-          var bar = d3.select('#graphic-count')
-            .attr("style", "margin-left:10px;")
-            .attr("width", width*0.48)
-            .attr("height", 200)
-          .selectAll("g")
-            .attr("id", "count-bar")
-            .data(wordObjectArray.slice(0,40))
-          .enter().append("g")
-              .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
-
-          bar.append("rect")
-              .attr("y", function(d) { return 60 - barChartScale(d.count); })
-              .attr("height", function(d) { return barChartScale(d.count); })
-              .attr("width", barWidth - 1);
-          
-          bar.append("text")
-              .attr("x", barWidth)
-              .attr("y", function(d) { 
-                return 100; // barChartScale(d.count) + 30; 
-              })
-              .attr("transform", "translate("+6*barWidth+",45)rotate(90)")
-              .attr("dy", ".75em")
-              .text(function(d) { 
-                return d.text; // + ", "+d.chartCount; 
-              });
 
 
         } else {
@@ -213,13 +182,14 @@
 
   function getRecentData() {
     recentWordObjectArray = [];
-    recentWordData = [];
+    var recentWordData = [];
     intervalCount = intervalCount + 1;
     
 
     $.ajax({
-      url: "ba-simple-proxy.php?url=https%3A%2F%2Fteamnsa.herokuapp.com%2Fwords%2Frecent%3Fmax%3D11%26period%3D200", // teamnsa.herokuapp
+      //url: "ba-simple-proxy.php?url=https%3A%2F%2Fteamnsa.herokuapp.com%2Fwords%2Frecent%3Fmax%3D11%26period%3D200", // teamnsa.herokuapp
       //url: "ba-simple-proxy.php?url=http%3A%2F%2F104.236.60.203%3A5000%2Fwords%2Ftop%3Fmax%3D100", // Production URL for API
+      url: "http://104.236.60.203:5000/words/recent?max=16&period=100", // Production URL for API
       type: "GET",
       dataType: "json",
       crossDomain: true,
@@ -228,9 +198,9 @@
         // Handle the data, parse result
         
         console.log('Interval '+intervalCount+': Successful request to API. Comparing result to existing data. (Second Visualization)')
-        var recentWordData = result;
+        recentWordData = result;
 
-        if ( recentWordData.contents.length > 0 ) {
+        if ( recentWordData.length > 0 ) {
           if( d3.selectAll("#secondary-text-item") ) {
             d3.selectAll("#secondary-text-item")
               .transition()
@@ -243,21 +213,23 @@
           console.log('Interval '+intervalCount+': New data received, updating visualization. (Secondary Visualization)');
 
           // Parse GET result to conform to JSON format d3.layout.cloud.js is looking for
-          for( var i = 0; i < recentWordData.contents.length; i++ ) {
+          for( var i = 0; i < recentWordData.length; i++ ) {
  
             // Create new objects with word and count.
             var tempObject = {
-              text: recentWordData.contents[i].word,
-              //count: String(fontScale(recentWordData.contents[i].count))
+              text: recentWordData[i].word,
+              //count: String(fontScale(recentWordData[i].count))
             };
             recentWordObjectArray.push(tempObject);
 
           }
-          var wordWidth = width*0.495/recentWordData.contents.length;
+          var wordWidth = width*0.495/5;
 
           //////////////////////////////////////////////////////////////////////////////////
           // Add title
           document.getElementById("recent-title").innerHTML = "Incoming at the mic";
+          //document.getElementById("recent-title").style = "color:#f00;-webkit-text-stroke-color:#000;";
+          d3.select('#recent-title').attr("style", "font-size:26px;color:#f00;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;");
 
           //////////////////////////////////////////////////////////////////////////////////
           // Add recent words to footer
@@ -277,18 +249,28 @@
           .selectAll("text")
             .data(recentWordObjectArray)
           .enter().append("text")
-            .transition()
-            .duration(1000)
             .style("font-size", function(d) { return "26px"; })
             .style("font-family", "Impact")
             .style("fill", function(d, i) { return fill(i); })
+            .style("float", "left")
             .attr("text-anchor", "middle")
             .attr("transform", function(d, i) {
-              return "translate(" + i*wordWidth + ",40)";
+              console.log(recentWordObjectArray);
+              if ( i <= 5 ) {
+                return "translate(" + i*wordWidth + ",40)";
+              } else if ( i > 5 && i <= 10 ) {
+                return "translate(" + (i-6)*wordWidth + ",90)";
+              } else if ( i > 10 && i <= 16 ) {
+                return "translate(" + (i-11)*wordWidth + ",140)";
+              }
             })
-            .text(function(d) { return d.text; });
+            .text(function(d) { return d.text; })
+            .style("opacity", 0)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1);;
 
-        } else if ( recentWordData.contents.length == 0 ) {
+        } else if ( recentWordData.length == 0 ) {
           console.log('Interval '+intervalCount+': New data was not received. (Secondary Visualization)');
           if( d3.selectAll("#secondary-text-item") ) {
             d3.selectAll("#secondary-text-item")
@@ -301,6 +283,8 @@
           }
 
           document.getElementById("recent-title").innerHTML = "No one's at the mic bro.";
+          //document.getElementById("recent-title").style = "color:#aaa;-webkit-text-stroke-color:#000;";
+          d3.select('#recent-title').attr("style", "font-size:26px;color:#aaa;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;");
         }
 
         
@@ -313,20 +297,175 @@
     });
   }
   
+  function getTopWords() {
+    topWordObjectArray = [];
+    var topWordData = [];
+    intervalCount = intervalCount + 1;
+    
+
+    $.ajax({
+      //url: "ba-simple-proxy.php?url=https%3A%2F%2Fteamnsa.herokuapp.com%2Fwords%2Frecent%3Fmax%3D11%26period%3D200", // teamnsa.herokuapp
+      //url: "ba-simple-proxy.php?url=http%3A%2F%2F104.236.60.203%3A5000%2Fwords%2Ftop%3Fmax%3D100", // Production URL for API
+      url: "http://104.236.60.203:5000/words/top?max=100", // Production URL for API
+      type: "GET",
+      dataType: "json",
+      crossDomain: true,
+      success: function(result) {
+        //////////////////////////////////////////////////////////////////////////////////
+        // Handle the data, parse result
+        
+        console.log('Interval '+intervalCount+': Successful request to API. Comparing result to existing data. (Third Visualization)')
+        topWordData = result;
+
+        if ( topWordData.length > 0 ) {
+          console.log('Interval '+intervalCount+': New data received, updating visualization. (Third Visualization)');
+
+          var max = 0;
+          
+          // Get max count from dataset
+          for ( var k = 0; k < topWordData.length; k++ ) {
+            if ( topWordData[k].count > max ) {
+              max = topWordData[k].count;
+            }
+          }
+          console.log('Max Count: '+max );
+
+          var barChartScale = d3.scale.linear()
+            .domain([0,max*1.5])
+            .range([0,85]);
+
+          // Parse GET result to conform to JSON format d3.layout.cloud.js is looking for
+          for( var i = 0; i < topWordData.length; i++ ) {
+            
+            if( topWordData[i].word == 'Shit' ) {
+              //wordData[i].word = 'Sh*t';
+            }
+
+            // Create new objects with word and count.
+            var tempObject = {
+              text: topWordData[i].word,
+              chartCount: topWordData[i].count
+            };
+            topWordObjectArray.push(tempObject);
+
+          }
+
+          //////////////////////////////////////////////////////////////////////////////////
+          // Create Bar Chart
+
+
+          //if ( isEquivalent(topWordData, tempData) === false ) {
+            // First, remove old bar chart
+            
+          //}
+
+          var offset;
+
+          //var barWidth = 20;
+          var barWidth = (width*0.48)/38;
+
+          var bar = d3.select('#graphic-count')
+            .attr("style", "margin-left:10px;")
+            .attr("width", width*0.48)
+            .attr("height", 200)
+          .selectAll("g")
+            .attr("id", "count-bar")
+            .data(topWordObjectArray.slice(0,38))
+          .enter().append("g")
+            .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
+
+          bar.append("rect")
+            .attr("y", function(d) { return 90 - barChartScale(d.chartCount); })
+
+            .attr("width", barWidth - 1)
+            .transition()
+            .duration(1000)
+            .attr("height", function(d) { return barChartScale(d.chartCount); });
+          
+          // Word Label
+          bar.append("text")
+            .style("font-family", "Arial")
+            .style("font-size", "14px")
+            .attr("transform", "translate("+5.8*barWidth+",75)rotate(90)")
+            .attr("x", barWidth)
+            .attr("y", function(d) { 
+              return 100; // barChartScale(d.count) + 30; 
+            })
+            .attr("dy", ".75em")
+            .text(function(d) { 
+              return d.text; // + ", "+d.chartCount; 
+            })
+            .style("opacity", 0)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1);
+
+          // Word Count
+          bar.append("g")
+            .attr("width", function(d,i) {
+                return barWidth;
+            })
+            .append("text")
+              .style("font-family", "Arial")
+              .style("font-size", "12px")
+              .attr("x", barWidth)
+              .attr("y", function(d) { 
+                return 30 - barChartScale(d.chartCount); 
+              })
+              .attr("transform", function(d,i) {
+                if ( d.chartCount >= 10 ) {
+                  return "translate("+-barWidth*0.8+",45)";
+                } else {
+                  return "translate("+-barWidth*0.5+",45)";
+                }
+              })
+              .attr("dy", ".75em")
+              .text(function(d) { 
+                return d.chartCount; // + ", "+d.chartCount; 
+              })
+              .style("opacity", 0)
+              .transition()
+              .duration(1000)
+              .style("opacity", 1);
+
+          // Keep data for comparison on next interval
+          tempData2 = tempData;
+          tempData = topWordData;
+
+        } else {
+          console.log('Interval '+intervalCount+': New data was not received. (Secondary Visualization)');
+        }
+
+        
+      },
+      error: function(d) {
+        console.log('Interval '+intervalCount+': Unsuccessful Request to API. Error:\n');
+        console.log(d);
+      }
+
+    });
+  }
+
   d3.select('#button').on("click", function() {
+    console.log('Manual Update');
     tempData = [];
+    tempData2 = [];
     getRecentData();
+    console.log('Completed getRecentData()');
+    getTopWords();
+    console.log('Completed getTopWords()');
     getData();
+    console.log('Completed getData()');
     /*
-    d3.layout.cloud()
-      .size([width, height])
-      .words(wordData2)
-      .padding(5)
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
-      .font("Impact")
-      .fontSize(function(d) { return d.count; })
-      .on("end", draw)
-      .start();*/
+    if(d3.selectAll('#count-bar')) {
+      d3.selectAll('#count-bar')
+        .transition()
+        .duration(1000)
+        .style("opacity",0)
+        .remove(); 
+
+      console.log('Interval '+intervalCount+': Removed Primary Bar Chart Visualization');
+    }*/
   });
   //////////////////////////////////////////////////////////////////////////////////
   // Draw D3 Cloud
@@ -356,14 +495,29 @@
 
   getData();
   getRecentData();
+  getTopWords();
 
   setInterval(function () {
     //intervalCount += 1;
-    getData();
-  }, 5000);
+    //getData();
+    getTopWords();
+  }, 3000);
 
   setInterval(function () {
     tempData = [];
+
+    // Remove Bar Chart
+    if( d3.selectAll("#count-bar") ) {
+      d3.selectAll("#count-bar")
+        .transition()
+        .duration(1000)
+        .style("opacity",0)
+        .remove();
+
+      console.log('Interval '+intervalCount+': Removed Current Visualization (Third Visualization)')
+    }
+
+    getTopWords();
     getData();
   }, 15000);
 
@@ -379,26 +533,26 @@
 
   function isEquivalent(a, b) {
     // If b is false, then tempData hasn't been set yet. Live with it.
-    if ( !tempData.contents ) {
+    if ( !tempData ) {
       return false;
     } else {
-      if ( a.contents.length != tempData.contents.length ) {
+      if ( a.length != tempData.length ) {
         return false;
       } else {
         // Well, there's the same amount of words. Lets check if the count or modified times changed.
-        for ( var i = 0; i < a.contents.length; i++ ) {
+        for ( var i = 0; i < a.length; i++ ) {
           // Note, a and b have the same lengths
           // I've hard coded the keys, but at this point, I'm 4 drinks in and don't give a shit.
-          if ( String(a.contents[i].word) != String(tempData.contents[i].word) ) {
+          if ( String(a[i].word) != String(tempData[i].word) ) {
             //return 'False, mismatch: words';
             return false;
-          } else if ( String(a.contents[i].count) != String(tempData.contents[i].count) || String(a.contents[i].count) != String(tempData2.contents[i].count) ) {
+          } else if ( String(a[i].count) != String(tempData[i].count) || String(a[i].count) != String(tempData2[i].count) ) {
             //return 'False, mismatch: count';
             return false;
-          } else if ( String(a.contents[i].modifiedOn) != String(tempData.contents[i].modifiedOn) || String(a.contents[i].modifiedOn) != String(tempData2.contents[i].modifiedOn) ) {
+          } else if ( String(a[i].modifiedOn) != String(tempData[i].modifiedOn) || String(a[i].modifiedOn) != String(tempData2[i].modifiedOn) ) {
             //return 'False, mismatch: modifiedOn';
             return false;
-          } else if ( String(a.contents[i].variance) != String(tempData.contents[i].variance)  || String(a.contents[i].variance) != String(tempData2.contents[i].variance) ) {
+          } else if ( String(a[i].variance) != String(tempData[i].variance)  || String(a[i].variance) != String(tempData2[i].variance) ) {
             //return 'False, mismatch: variance. '+i+': ('+a.contents[i].variance+', '+b.contents[i].variance+')';
             // Something about the variance being an array throws this off. We're not using it, so ignore it.
             return true;
