@@ -1,14 +1,12 @@
 import speech_recognition as sr
 import sys
 import os
-
+import subprocess
 
 #Th .wav file to interpret
 soundFile=sys.argv[1]
 #The file to write the results to, usually .txt
 outfile = sys.argv[2]
-#Folder to watch for additional sound files
-soundfolder = ".\soundbites"
 
 
 
@@ -30,3 +28,5 @@ try:
 
 except LookupError:                               
 	print("Could not understand audio - ignoring input")
+
+subprocess.call(["rm","soundbites/"+soundFile])

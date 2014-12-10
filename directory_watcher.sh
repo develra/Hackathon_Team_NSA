@@ -1,18 +1,9 @@
 #/bin/bash
 
-DIR=/$HOME/Dropbox/Hackathon/Hackathon_Team_NSA/soundbites/
+DIR=$HOME/Mic1Audio
 
-
-inotifywait -m --format '%f' "$DIR" | while read FILE
+inotifywait -m --format '%f' -e close "$DIR" | while read FILE
 do
-	python wav2text.py $FILE out.txt
-	rm $FILE
+	sox $DIR/$FILE soundbites/$FILE.out.wav remix 1
+	python wav2text.py soundbites/$FILE.out.wav out.txt
 done
-
-
-#for f in $files
-#do 
-#	echo f
-#	echo "Break"
-#		python wav2text.py f out.txt
-#	done
