@@ -26,18 +26,24 @@ try:
 			best_prediction=prediction
 		#print(" " + prediction["text"] + " (" + str(prediction["confidence"]*100) + "%)")
 	print(best_prediction["text"])
-	for word in best_prediction["text"].split(' '):
-		outf.write(word+'\n')
-		payload = [{"word":str(word), "variance":""}]
-		print payload
-		headers = {'content-type': 'application/json'}
-		cb = requests.post("http://104.236.60.203:5000/words/", data=json.dumps(payload), headers=headers)
-		print (cb)
-
+	#for word in best_prediction["text"].split(' '):
+		#outf.write(word+' ')
+		#payload = [{"word":str(word), "variance":""}]
+		#print payload
+		#headers = {'content-type': 'application/json'}
+		#cb = requests.post("http://104.236.60.203:5000/words/", data=json.dumps(payload), headers=headers)
+		#print (cb)
+	outf.write(best_prediction["text"])
+	outf.close()
+	subprocess.call(["python", "/home/pi/Hackathon_Team_NSA/nsaStem/nsaStem.py"])
 except LookupError:                               
 	print("Could not understand audio - ignoring input")
-
+	payload = [{"word":"team_nsa", "variance":""}]
+	headers = {'content-type': 'application/json'}
+	cb = requests.post("http://104.236.60.203:5000/words/", data=json.dumps(payload), headers=headers)
 try: 
 	subprocess.call(["rm", soundFile])
 except IOError:
 	pass
+
+
