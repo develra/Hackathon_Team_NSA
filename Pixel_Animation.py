@@ -24,9 +24,9 @@ def recording(dur,pix):
 		numlit = 0 #Number of LEDs at the top lit first
 		numTotal = pix.numPixels()
 		interval = dur / numPix
-		print "Time to record: " + str(dur)
-		print "Number of Pixels: " + str(numPix)
-		print "Sleeping for time: " + str(interval)
+		#print "Time to record: " + str(dur)
+		#print "Number of Pixels: " + str(numPix)
+		#print "Sleeping for time: " + str(interval)
 		while numlit <= numPix:
 			for i in xrange(0,numlit):
 				pix.setPixelColor(i, Color(20,0,0) )
