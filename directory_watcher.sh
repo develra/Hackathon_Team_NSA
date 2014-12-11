@@ -1,7 +1,7 @@
 #/bin/bash
-
 DIR=$HOME/Mic1Audio
 
+python audio_record.py &
 
 inotifywait -m --format '%f' -e close_write "$DIR" | while read FILE
 do	
@@ -9,3 +9,5 @@ do
 	rm $DIR/$FILE
 	python wav2text.py soundbites/$FILE out.txt
 done
+
+trap "kill 0" SIGINT SIGTERM EXIT
