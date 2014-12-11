@@ -1,7 +1,10 @@
 from porter2 import stem
+import re
 import difflib
 import requests
 import json
+
+fullpath = "/home/pi/Hackathon_Team_NSA/nsaStem/"
 
 stopList = []
 
@@ -10,7 +13,7 @@ stopList = []
 # Open stopWords and put into list
 
 def setStops():
-    with open('stopWords.txt') as f:
+    with open(fullpath+'stopWords.txt') as f:
         lines = f.read().splitlines()
     f.close()
     return lines
@@ -18,12 +21,10 @@ def setStops():
 #######################################
 
 # Open wav2text output and put words in list
-
 def openWav2Text():
-    with open('out.txt', 'r') as f:
+    with open(fullpath+'out1.txt', 'r') as f:
         readWords = f.read()
     f.close()
-
     return readWords.split()
 
 #######################################
@@ -35,6 +36,7 @@ def stemWords(data):
     jstuff = []
 
     for word in data:
+	word = re.sub(',','',word)
         suffix = ''
         root = ''
         if word.lower() not in stopList:
@@ -49,7 +51,7 @@ def stemWords(data):
                     elif s[0]=='+':
                         print(u'Add "{}" to position {}'.format(s[-1],i))
                         suffix += s[-1]
-                jstuff.append({'word':root, 'variance':suffix})
+                jstuff.append({'word':root+suffix, 'variance':suffix})
     return jstuff
 #######################################
 
@@ -65,7 +67,7 @@ def send_request(data):
 
     try:
         r = requests.post(
-            url="https://teamnsa.herokuapp.com/words",
+            url="http://104.236.60.203:5000/words",
             headers = {
                 "Content-Type":"application/json",
             },

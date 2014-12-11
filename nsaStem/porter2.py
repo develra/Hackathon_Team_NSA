@@ -125,7 +125,7 @@ def step_1c(word):
     if word.endswith('y') or word.endswith('Y') and len(word) > 1:
         if word[-2] not in 'aeiouy':
             if len(word) > 2:
-                return word[:-1] + 'i'
+                return word[:-1] + 'y'
     return word
 
 def step_2_helper(word, r1, end, repl, prev):
@@ -203,7 +203,7 @@ def step_4(word, r2):
     for end in s4_delete_list:
         if word.endswith(end):
             if len(word) - len(end) >= r2:
-                return word[:-len(end)]
+                return word[:-len(end)] + 'e'
             return word
  
     if word.endswith('sion') or word.endswith('tion'):
@@ -220,9 +220,9 @@ def step_5(word, r1, r2):
  
     if word.endswith('e'):
         if len(word) - 1 >= r2:
-            return word[:-1]
+            return word[:-1] + 'e'
         if len(word) - 1 >= r1 and not ends_with_short_syllable(word[:-1]):
-            return word[:-1]
+            return word[:-1] + 'e'
  
     return word
  
@@ -230,16 +230,16 @@ def normalize_ys(word):
     return word.replace('Y', 'y')
  
 exceptional_forms = {'skis': 'ski',
+                    'cities': 'city',
+                    'simulation':'simulate',
                     'skies': 'sky',
                     'dying': 'die',
                     'lying': 'lie',
                     'tying': 'tie',
-                    'idly': 'idl',
-                    'gently': 'gentl',
-                    'ugly': 'ugli',
-                    'early': 'earli',
-                    'only': 'onli',
-                    'singly': 'singl',
+                    'idly': 'idle',
+                    'theoretically': 'theory',
+                    'gently': 'gentle',
+                    'singly': 'single',
                     'sky': 'sky',
                     'news': 'news',
                     'howe': 'howe',
