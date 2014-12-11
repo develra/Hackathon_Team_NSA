@@ -1,4 +1,5 @@
 from porter2 import stem
+import re
 import difflib
 import requests
 import json
@@ -35,6 +36,7 @@ def stemWords(data):
     jstuff = []
 
     for word in data:
+	word = re.sub(',','',word)
         suffix = ''
         root = ''
         if word.lower() not in stopList:

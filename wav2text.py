@@ -2,6 +2,8 @@ import speech_recognition as sr
 import sys
 import os
 import subprocess
+import requests
+import json
 
 #Th .wav file to interpret
 soundFile=sys.argv[1]
@@ -22,11 +24,20 @@ try:
 	for prediction in list:
 		if best_prediction["confidence"]<prediction["confidence"]:
 			best_prediction=prediction
-		print(" " + prediction["text"] + " (" + str(prediction["confidence"]*100) + "%)")
+		#print(" " + prediction["text"] + " (" + str(prediction["confidence"]*100) + "%)")
+	print(best_prediction["text"])
 	for word in best_prediction["text"].split(' '):
 		outf.write(word+'\n')
+		payload = [{"word":str(word), "variance":""}]
+		print payload
+		headers = {'content-type': 'application/json'}
+		cb = requests.post("http://104.236.60.203:5000/words/", data=json.dumps(payload), headers=headers)
+		print (cb)
 
 except LookupError:                               
 	print("Could not understand audio - ignoring input")
 
-subprocess.call(["rm","soundbites/"+soundFile])
+try: 
+	subprocess.call(["rm", soundFile])
+except IOError:
+	pass

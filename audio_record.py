@@ -1,12 +1,9 @@
 import subprocess
 
-fileBase = "sound_"
+fileBase = "sound"
 fileIter = 1
 
-#showIP = subprocess.check_output(["ifconfig"])
-#subprocess.call(["ifconfig", "|", "mail", "-s", "piP", "korn94sam@gmail.com"])
-for i in xrange(1,10):
-	subprocess.call(["arecord", "-f", "cd", "-d", "5", "-D", "hw:1,0", "soundbites/" + fileBase + str(fileIter) + ".wav"])
-	#subprocess.call(["arecord", "-f", "S16_LE", "-t", "raw", "-r22050", "-d", "5", "-D", "hw:1,0", "soundbites/" + fileBase + str(fileIter) + ".wav"])
+while True:
+	subprocess.call(["arecord", "-f", "cd", "-d", "7", "-D", "hw:1,0", "../Mic1Audio/" + fileBase + "_1_" + str(fileIter) + ".wav"])
+	#subprocess.call(["arecord", "-f", "S16_LE", "-c", "1", "-r48000", "-d", "7", "-D", "hw:2,0", "../Mic1Audio/" + fileBase + "_2_" + str(fileIter) + ".wav"])	
 	fileIter += 1
-#print showIP
