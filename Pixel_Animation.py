@@ -29,7 +29,7 @@ def recording(dur,pix):
 		#print "Sleeping for time: " + str(interval)
 		while numlit <= numPix:
 			for i in xrange(0,numlit):
-				pix.setPixelColor(i, Color(20,0,0) )
+				pix.setPixelColor(i, Color(25,12,0) )
 			numlit = numlit + 1
 			pix.show()
 			time.sleep(interval/4)
@@ -37,7 +37,7 @@ def recording(dur,pix):
 		numlit = 0 #Number of LEDs at the top lit first
         	while numlit <= numPix:
                 	for i in xrange(0,numlit):
-                        	pix.setPixelColor(i, Color(0,20,0) )
+                        	pix.setPixelColor(i, Color(25,0,25 ) )
                 	numlit = numlit + 1
                 	pix.show()
                 	time.sleep(interval/4)
