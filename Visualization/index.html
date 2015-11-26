@@ -33,16 +33,11 @@
 <script src="d3.layout.cloud.js"></script>
 
 <script>
-  // Yo, don't leave this shit on, or you'll regret it.
   console.error = undefined;
   //////////////////////////////////////////////////////////////////////////////////
   // Just some housekeeping, carry on.
   var wordData2 = [];
   wordData2 = [
-  {
-    text: "cunt",
-    count: "180"
-  },
   {
     text: "apple",
     count: "160"
@@ -137,11 +132,6 @@
 
           // Parse GET result to conform to JSON format d3.layout.cloud.js is looking for
           for( var i = 0; i < wordData.length; i++ ) {
-            
-            if( wordData[i].word == 'Shit' ) {
-              //wordData[i].word = 'Sh*t';
-            }
-
             // Create new objects with word and count.
             var tempObject = {
               text: wordData[i].word,
@@ -207,8 +197,6 @@
               .duration(1000)
               .style("opacity",0)
               .remove();
-
-            //console.log('Interval '+intervalCount+': Removed Current Visualization (Secondary Visualization)')
           }
           console.log('Interval '+intervalCount+': New data received, updating visualization. (Secondary Visualization)');
 
@@ -218,7 +206,6 @@
             // Create new objects with word and count.
             var tempObject = {
               text: recentWordData[i].word,
-              //count: String(fontScale(recentWordData[i].count))
             };
             recentWordObjectArray.push(tempObject);
 
@@ -228,7 +215,6 @@
           //////////////////////////////////////////////////////////////////////////////////
           // Add title
           document.getElementById("recent-title").innerHTML = "Incoming at the mic";
-          //document.getElementById("recent-title").style = "color:#f00;-webkit-text-stroke-color:#000;";
           d3.select('#recent-title').attr("style", "font-size:26px;color:#f00;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;");
 
           //////////////////////////////////////////////////////////////////////////////////
@@ -278,12 +264,9 @@
               .duration(1000)
               .style("opacity",0)
               .remove();
-
-            //console.log('Interval '+intervalCount+': Removed Current Visualization (Secondary Visualization)')
           }
 
           document.getElementById("recent-title").innerHTML = "No one's at the mic bro.";
-          //document.getElementById("recent-title").style = "color:#aaa;-webkit-text-stroke-color:#000;";
           d3.select('#recent-title').attr("style", "font-size:26px;color:#aaa;font-family:Impact;text-align:center;margin:0;-webkit-text-stroke-width: 2px;-webkit-text-stroke-color: black;");
         }
 
@@ -336,10 +319,6 @@
 
           // Parse GET result to conform to JSON format d3.layout.cloud.js is looking for
           for( var i = 0; i < topWordData.length; i++ ) {
-            
-            if( topWordData[i].word == 'Shit' ) {
-              //wordData[i].word = 'Sh*t';
-            }
 
             // Create new objects with word and count.
             var tempObject = {
@@ -352,16 +331,7 @@
 
           //////////////////////////////////////////////////////////////////////////////////
           // Create Bar Chart
-
-
-          //if ( isEquivalent(topWordData, tempData) === false ) {
-            // First, remove old bar chart
-            
-          //}
-
           var offset;
-
-          //var barWidth = 20;
           var barWidth = (width*0.48)/38;
 
           var bar = d3.select('#graphic-count')
@@ -389,11 +359,11 @@
             .attr("transform", "translate("+5.8*barWidth+",75)rotate(90)")
             .attr("x", barWidth)
             .attr("y", function(d) { 
-              return 100; // barChartScale(d.count) + 30; 
+              return 100; 
             })
             .attr("dy", ".75em")
             .text(function(d) { 
-              return d.text; // + ", "+d.chartCount; 
+              return d.text;
             })
             .style("opacity", 0)
             .transition()
@@ -421,7 +391,7 @@
               })
               .attr("dy", ".75em")
               .text(function(d) { 
-                return d.chartCount; // + ", "+d.chartCount; 
+                return d.chartCount;
               })
               .style("opacity", 0)
               .transition()
@@ -456,16 +426,6 @@
     console.log('Completed getTopWords()');
     getData();
     console.log('Completed getData()');
-    /*
-    if(d3.selectAll('#count-bar')) {
-      d3.selectAll('#count-bar')
-        .transition()
-        .duration(1000)
-        .style("opacity",0)
-        .remove(); 
-
-      console.log('Interval '+intervalCount+': Removed Primary Bar Chart Visualization');
-    }*/
   });
   //////////////////////////////////////////////////////////////////////////////////
   // Draw D3 Cloud
@@ -498,8 +458,6 @@
   getTopWords();
 
   setInterval(function () {
-    //intervalCount += 1;
-    //getData();
     getTopWords();
   }, 3000);
 
@@ -522,17 +480,13 @@
   }, 15000);
 
   setInterval(function () {
-    //intervalCount += 1;
     getRecentData();
-    //tempData = [];
   }, 5000);
 
   //////////////////////////////////////////////////////////////////////////////////
   // Function to deep compare objects
-  // Note: I tried making this general, but it just wouldn't fucking work. Fuck JavaScript.
-
   function isEquivalent(a, b) {
-    // If b is false, then tempData hasn't been set yet. Live with it.
+    // If b is false, then tempData hasn't been set yet.
     if ( !tempData ) {
       return false;
     } else {
@@ -542,7 +496,6 @@
         // Well, there's the same amount of words. Lets check if the count or modified times changed.
         for ( var i = 0; i < a.length; i++ ) {
           // Note, a and b have the same lengths
-          // I've hard coded the keys, but at this point, I'm 4 drinks in and don't give a shit.
           if ( String(a[i].word) != String(tempData[i].word) ) {
             //return 'False, mismatch: words';
             return false;
